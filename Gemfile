@@ -50,4 +50,5 @@ gem 'unicorn'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'jquery-turbolinks'
+# needed for Heroku
+gem 'rails_12factor', group: :production
