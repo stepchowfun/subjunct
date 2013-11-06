@@ -1,0 +1,10 @@
+# create an angular.js module
+angular.module('subjunct', [])
+
+$(document).ready ->
+  # bootstrap the page
+  angular.bootstrap($('body'), ['subjunct'])
+
+  # pre-cache the spinner image
+  spinner = new Image()
+  spinner.src = "<%= asset_path 'spinner.svg' %>"

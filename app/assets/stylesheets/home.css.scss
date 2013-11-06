@@ -1,0 +1,300 @@
+/* Global Constants */
+
+$anchor-color-hover: #ba2b18;
+$footer-height: 64px;
+
+/* Helper styles and mixins */
+
+.right {
+  text-align: right;
+}
+
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin box-shadow($x, $y, $blur, $spread, $color, $inset) {
+  @if $inset {
+    -webkit-box-shadow: $x $y $blur $spread $color inset;
+    -moz-box-shadow:    $x $y $blur $spread $color inset;
+    -ms-box-shadow:     $x $y $blur $spread $color inset;
+    -o-box-shadow:      $x $y $blur $spread $color inset;
+    box-shadow:         $x $y $blur $spread $color inset;
+  } @else {
+    -webkit-box-shadow: $x $y $blur $spread $color;
+    -moz-box-shadow:    $x $y $blur $spread $color;
+    -ms-box-shadow:     $x $y $blur $spread $color;
+    -o-box-shadow:      $x $y $blur $spread $color;
+    box-shadow:         $x $y $blur $spread $color;
+  }
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius:    $radius;
+  -ms-border-radius:     $radius;
+  -o-border-radius:      $radius;
+  border-radius:         $radius;
+}
+
+@mixin animate($properties, $duration) {
+  -webkit-transition-property: $properties;
+  -moz-transition-property:    $properties;
+  -ms-transition-property:     $properties;
+  -o-transition-property:      $properties;
+  transition-property:         $properties;
+  -webkit-transition-duration: $duration;
+  -moz-transition-duration:    $duration;
+  -ms-transition-duration:     $duration;
+  -o-transition-duration:      $duration;
+  transition-duration:         $duration;
+}
+
+@mixin box-sizing($mode) {
+  -webkit-box-sizing: $mode;
+  -moz-box-sizing: $mode;
+  box-sizing: $mode;
+}
+
+/* Sticky Footer */
+
+#footer-fix-container {
+  min-height: 100%;
+  position: relative;
+}
+
+/* Global Styles */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  background-color: #eee;
+  color: #666;
+
+  *:focus, *:active {
+    outline: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+    font-weight: 600;
+    @include animate(color, 0.2s);
+
+    &:hover {
+      color: $anchor-color-hover;
+    }
+  }
+
+  p {
+    margin: 16px 0;
+  }
+
+  #header-vessel {
+    background-color: #fff;
+
+    #header {
+      text-align: right;
+      line-height: 80px;
+
+      h1 {
+        text-align: left;
+        font-weight: 600;
+        margin: 0;
+        color: #333;
+
+        a {
+          float: left;
+          display: inline-block;
+          font-weight: inherit;
+
+          padding: 0 0 0 1.3em;
+          background-position: left center;
+          background-size: 1em 1.156em;
+          background-repeat: no-repeat;
+          background-origin: padding-box;
+          background-image: image-url("logo.png");
+
+          &:hover {
+            color: $anchor-color-hover;
+          }
+        }
+      }
+
+      a {
+        display: inline-block;
+        padding: 0 16px;
+      }
+    }
+  }
+
+  #content {
+    padding-bottom: $footer-height;
+
+    #banner {
+      background: #161616 image-url("diagmonds.png") repeat;
+      padding: 16px 0;
+      color: #ccc;
+
+      h2 {
+        font-family: "Oswald", sans-serif;
+        font-weight: 300;
+        font-size: 2em;
+        text-transform: uppercase;
+        margin: 16px 0;
+        text-align: center;
+      }
+
+      .question, .answer {
+        width: 100%;
+        height: 64px;
+      }
+
+      .message {
+        width: 100%;
+        height: 144px;
+      }
+
+      textarea, input[type="text"] {
+        display: inline-block;
+        @include box-sizing(border-box);
+        border: none;
+        @include border-radius(3px);
+        background-color: #333;
+        padding: 8px 12px;
+        color: #bbb;
+        @include animate("background-color", 0.2s);
+
+        $placeholder-color: #666;
+        &::-webkit-input-placeholder { /* WebKit browsers */
+          color: $placeholder-color;
+        }
+        &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+          color: $placeholder-color;
+        }
+        &::-moz-placeholder { /* Mozilla Firefox 19+ */
+          color: $placeholder-color;
+        }
+        &:-ms-input-placeholder { /* Internet Explorer 10+ */
+          color: $placeholder-color;
+        }
+
+        &:focus {
+          $focus-color: #444;
+          background-color: $focus-color;
+
+          $placeholder-color-hover: #6a6a6a;
+          &::-webkit-input-placeholder {
+            color: $focus-color;
+          }
+          &:-moz-placeholder {
+            color: $focus-color;
+          }
+          &::-moz-placeholder {
+            color: $focus-color;
+          }
+          &:-ms-input-placeholder {
+            color: $focus-color;
+          }
+        }
+      }
+
+      textarea {
+        resize: none;
+      }
+
+      input[type="submit"] {
+        display: inline-block;
+        font-family: "Oswald", sans-serif;
+        font-weight: 300;
+        text-transform: uppercase;
+
+        @include box-sizing(border-box);
+        border: none;
+        @include border-radius(3px);
+        background-color: #69a55b;
+        padding: 8px 20px;
+        color: #ececec;
+        @include animate("background-color", 0.2s);
+
+        &:hover {
+          background-color: #4b7541;
+        }
+      }
+    }
+
+    #cards {
+      padding-top: 20px;
+      padding-bottom: 12px;
+
+      .card-container {
+        width: 33.333%;
+
+        @media (max-width: 767px) {
+          width: 100%;
+        }
+
+        @include box-sizing(border-box);
+        padding: 12px 12px;
+        float: left;
+
+        .card {
+          @include border-radius(3px);
+          background-color: #fff;
+          padding: 16px;
+          border: 1px solid #e2e2e2;
+          @include box-shadow(0px, 2px, 4px, 0px, #ddd, false);
+
+          &.expanded {
+            height: 200px
+          }
+
+          &.contracted {
+            cursor: pointer;
+
+            &:hover {
+              @include box-shadow(0px, 5px, 20px, 0px, #aaa, false);
+            }
+          }
+
+          .card-date {
+            margin-top: 8px;
+            color: #ccc;
+          }
+        }
+      }
+    }
+  }
+
+  #footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: $footer-height - 1;
+    line-height: $footer-height - 1;
+    background-color: #fff;
+    text-align: center;
+    color: #aaa;
+    border-top: 1px solid #e2e2e2;
+    @include box-shadow(0px, 2px, 4px, 0px, #ddd, false);
+
+    p {
+      margin: 0;
+    }
+  }
+}

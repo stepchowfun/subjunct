@@ -1,0 +1,39 @@
+<% content_for :title, "Subjunct" %>
+<% content_for :description, "Share your secrets." %>
+
+<div id="banner">
+  <div class="container">
+    <h2>Send a message to friends who know the answer.</h2>
+    <form class="row">
+      <div class="span4 offset2">
+        <p><textarea name="question" class="question" placeholder="Security question.  &ldquo;Hey love, where did we eat last Friday?&rdquo;" required="required" ></textarea></p>
+        <p><textarea name="answer" class="answer" placeholder="Answer.  &ldquo;The Cheesecake Factory&rdquo;" required="required" ></textarea></p>
+      </div>
+      <div class="span4">
+        <p><textarea name="message" class="message" placeholder="Secret message.  &ldquo;You remembered!  See you at the theater tonight!&rdquo;" required="required" /></textarea></p>
+        <p class="right"><input type="submit" class="submit" value="Submit" /></p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container clearfix" id="cards">
+  <div class="card-container">
+    <div class="card contracted">
+      Hey love!  Where did we eat last Friday?
+      <div class="card-date">5 minutes ago</div>
+    </div>
+  </div>
+  <div class="card-container">
+    <div class="card expanded">
+      Hey love!  Where did we eat last Friday?
+      <div class="card-date">5 minutes ago</div>
+    </div>
+  </div>
+  <div class="card-container">
+    <div class="card contracted">
+      Hey love!  Where did we eat last Friday?
+      <div class="card-date">5 minutes ago</div>
+    </div>
+  </div>
+</div>

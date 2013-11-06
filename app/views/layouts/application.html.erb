@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Subjunct</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="<%= content_for :description %>">
+    <title><%= content_for :title %></title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="footer-fix-container">
+      <div id="header-vessel">
+        <div class="container clearfix" id="header">
+          <h1><a id="title-link" href="/">Subjunct</a></h1>
+          <a href="/about">How it Works</a>
+          <a href="mailto:contact@subjunct.com">Contact</a>
+        </div>
+      </div>
+      <div id="content">
+        <%= yield %>
+      </div>
+      <div id="footer">
+        <p>&copy; <%= Time.new.year %> <a href="/">Subjunct</a>.  All rights reserved.</p>
+      </div>
+    </div>
+  </body>
 </html>
