@@ -12,18 +12,18 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div id="footer-fix-container">
-      <div id="header-vessel">
-        <div class="container clearfix" id="header">
-          <h1><a id="title-link" href="/">Subjunct</a></h1>
-          <a class="nav-link" href="/about">How it Works</a>
-          <a class="nav-link" href="mailto:contact@subjunct.com">Contact</a>
-        </div>
+    <div id="header-vessel">
+      <div class="container clearfix" id="header">
+        <h1><a id="title-link" href="/">Subjunct</a></h1>
+        <a class="nav-link" href="/about">How it Works</a>
+        <a class="nav-link" href="mailto:contact@subjunct.com">Contact</a>
       </div>
-      <div id="content">
-        <%= yield %>
-      </div>
-      <div id="footer">
+    </div>
+    <div id="content-vessel">
+      <%= yield %>
+    </div>
+    <div id="footer-vessel">
+      <div class="container" id="footer">
         <p>&copy; <%= Time.new.year %> <a href="/">Subjunct</a>.  All rights reserved.</p>
       </div>
     </div>

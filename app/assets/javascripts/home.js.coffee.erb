@@ -1,4 +1,28 @@
-$(document).ready ->
-  # pre-cache the spinner image
-  spinner = new Image()
-  spinner.src = "<%= asset_path 'spinner.svg' %>"
+window.PostsController = ($scope) ->
+  $scope.posts = [
+    {
+      id: 1,
+      date: "5 minutes ago",
+      question: "Hey love! Where did we eat last Friday?",
+      expanded: false,
+      clicking: false,
+    },
+    {
+      id: 2,
+      date: "10 minutes ago",
+      question: "Hey cutie! Where did we eat last Friday?",
+      expanded: false,
+      clicking: false,
+    },
+  ]
+
+  $scope.click = (post) ->
+    post.expanded = true
+    post.clicking = true
+
+  $(document).click () ->
+    $scope.$apply () ->
+      for post in $scope.posts
+        if !post.clicking
+          post.expanded = false
+        post.clicking = false
