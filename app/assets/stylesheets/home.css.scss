@@ -110,7 +110,7 @@ body {
 
     #header {
       text-align: right;
-      line-height: 80px;
+      line-height: 70px;
 
       h1 {
         text-align: left;
@@ -136,7 +136,10 @@ body {
         }
       }
 
-      a {
+      a.nav-link {
+        font-weight: 400;
+        font-size: 0.8em;
+        text-transform: uppercase;
         display: inline-block;
         padding: 0 16px;
       }
@@ -147,7 +150,7 @@ body {
     padding-bottom: $footer-height;
 
     #banner {
-      background: #161616 image-url("diagmonds.png") repeat;
+      background: #222 image-url("diagmonds.png") repeat;
       padding: 16px 0;
       color: #ccc;
 
@@ -172,33 +175,39 @@ body {
 
       textarea, input[type="text"] {
         display: inline-block;
+        border: 1px solid #333;
         @include box-sizing(border-box);
-        border: none;
-        @include border-radius(3px);
         background-color: #333;
         padding: 8px 12px;
-        color: #bbb;
-        @include animate("background-color", 0.2s);
+        color: #999;
+        @include animate("background-color, color, box-shadow", 0.5s);
+        @include border-radius(2px);
+        @include box-shadow(0px, 2px, 3px, 0px, #292929, true);
 
-        $placeholder-color: #666;
+        $placeholder-color: #555;
         &::-webkit-input-placeholder { /* WebKit browsers */
+          @include animate("color", 0.5s);
           color: $placeholder-color;
         }
         &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+          @include animate("color", 0.5s);
           color: $placeholder-color;
         }
         &::-moz-placeholder { /* Mozilla Firefox 19+ */
+          @include animate("color", 0.5s);
           color: $placeholder-color;
         }
         &:-ms-input-placeholder { /* Internet Explorer 10+ */
+          @include animate("color", 0.5s);
           color: $placeholder-color;
         }
 
         &:focus {
+          color: #aaa;
           $focus-color: #444;
           background-color: $focus-color;
+          @include box-shadow(0px, 2px, 3px, 0px, #333, true);
 
-          $placeholder-color-hover: #6a6a6a;
           &::-webkit-input-placeholder {
             color: $focus-color;
           }
@@ -220,17 +229,16 @@ body {
 
       input[type="submit"] {
         display: inline-block;
-        font-family: "Oswald", sans-serif;
         font-weight: 300;
         text-transform: uppercase;
 
+        @include animate("background-color", 0.2s);
         @include box-sizing(border-box);
+        @include border-radius(2px);
         border: none;
-        @include border-radius(3px);
         background-color: #69a55b;
         padding: 8px 20px;
         color: #ececec;
-        @include animate("background-color", 0.2s);
 
         &:hover {
           background-color: #4b7541;
@@ -266,9 +274,10 @@ body {
 
           &.contracted {
             cursor: pointer;
+            @include animate("box-shadow", 0.15s);
 
             &:hover {
-              @include box-shadow(0px, 5px, 20px, 0px, #aaa, false);
+              @include box-shadow(0px, 5px, 10px, 0px, #ccc, false);
             }
           }
 
@@ -285,13 +294,11 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: $footer-height - 1;
-    line-height: $footer-height - 1;
-    background-color: #fff;
+    height: $footer-height;
+    line-height: $footer-height;
+    background: #222 image-url("diagmonds.png") repeat;
     text-align: center;
-    color: #aaa;
-    border-top: 1px solid #e2e2e2;
-    @include box-shadow(0px, 2px, 4px, 0px, #ddd, false);
+    color: #666;
 
     p {
       margin: 0;

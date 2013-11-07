@@ -7,7 +7,7 @@
     <title><%= content_for :title %></title>
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
     <%= csrf_meta_tags %>
   </head>
@@ -16,8 +16,8 @@
       <div id="header-vessel">
         <div class="container clearfix" id="header">
           <h1><a id="title-link" href="/">Subjunct</a></h1>
-          <a href="/about">How it Works</a>
-          <a href="mailto:contact@subjunct.com">Contact</a>
+          <a class="nav-link" href="/about">How it Works</a>
+          <a class="nav-link" href="mailto:contact@subjunct.com">Contact</a>
         </div>
       </div>
       <div id="content">
