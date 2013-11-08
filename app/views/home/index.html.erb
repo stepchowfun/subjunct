@@ -4,14 +4,22 @@
 <div id="banner">
   <div class="container">
     <h2>Write a secret message.  Guard it with secret knowledge.</h2>
-    <form class="row compose-form">
+    <form class="row compose-form" ng-controller="ComposeController" ng-submit="submit()">
       <div class="span4 offset2">
-        <p><textarea name="question" class="question" placeholder="Security question" required="required" ></textarea></p>
-        <p><textarea name="answer" class="answer" placeholder="Answer" required="required" ></textarea></p>
+        <p><textarea name="question" class="question" placeholder="Security question" required="required" ng-model="question" ></textarea></p>
+        <p><textarea name="answer" class="answer" placeholder="Answer" required="required" ng-model="answer" ></textarea></p>
+        <p class="error" ng-show="show_error">{{error_message()}}</p>
       </div>
       <div class="span4">
-        <p><textarea name="message" class="message" placeholder="Secret message" required="required" /></textarea></p>
-        <p class="right"><input type="submit" class="submit" value="Subjunct" /></p>
+        <p><textarea name="message" class="message" placeholder="Secret message" required="required" ng-model="message" /></textarea></p>
+        <p class="right">
+          <span class="counter">
+            <span ng-class="{error: bad_count(question, max_question)}">{{remaining(question, max_question)}}</span> /
+            <span ng-class="{error: bad_count(answer, max_answer)}">{{remaining(answer, max_answer)}}</span> /
+            <span ng-class="{error: bad_count(message, max_message)}">{{remaining(message, max_message)}}</span>
+          </span>
+          <input type="submit" class="submit" value="Subjunct" />
+        </p>
       </div>
     </form>
   </div>

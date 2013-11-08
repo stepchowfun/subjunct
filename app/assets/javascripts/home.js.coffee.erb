@@ -1,3 +1,41 @@
+window.ComposeController = ($scope) ->
+  $scope.max_question = 100
+  $scope.max_answer = 50
+  $scope.max_message = 400
+  $scope.show_error = false
+
+  $scope.$watch 'question', (() -> $scope.show_error = false), true
+  $scope.$watch 'answer', (() -> $scope.show_error = false), true
+  $scope.$watch 'message', (() -> $scope.show_error = false), true
+
+  $scope.submit = () ->
+    $scope.show_error = true
+
+  $scope.remaining = (text, max_count) ->
+    if !text?
+      text = ''
+    return max_count - text.length
+
+  $scope.bad_count = (text, max_count) ->
+    if !text?
+      text = ''
+    return text.length > max_count
+
+  $scope.error_message = () ->
+    if !$scope.question? or $scope.question == ''
+      return 'Enter a security question.'
+    if !$scope.answer? or $scope.answer == ''
+      return 'Enter an answer to the security question.'
+    if !$scope.message? or $scope.message == ''
+      return 'Enter a secret message.'
+    if $scope.question.length > $scope.max_question
+      return 'The security question is too long.'
+    if $scope.answer.length > $scope.max_answer
+      return 'The answer to the security question is too long.'
+    if $scope.message.length > $scope.max_message
+      return 'The secret message is too long.'
+    return null
+
 window.PostsController = ($scope) ->
   clicking_post = null
 
@@ -18,7 +56,7 @@ window.PostsController = ($scope) ->
 
   $scope.click = (post, event) ->
     if !post.expanded
-      setTimeout (() -> $(event.target).closest(".card").find(".answer-form .answer").focus().select()), 0
+      setTimeout (() -> $(event.target).closest('.card').find('.answer-form .answer').focus().select()), 0
     post.expanded = true
     clicking_post = post
 
