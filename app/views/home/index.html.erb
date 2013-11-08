@@ -4,7 +4,7 @@
 <div id="banner">
   <div class="container">
     <h2>Write a secret message.  Guard it with secret knowledge.</h2>
-    <form class="row">
+    <form class="row compose-form">
       <div class="span4 offset2">
         <p><textarea name="question" class="question" placeholder="Security question.  &ldquo;Hey love, where did we eat last Friday?&rdquo;" required="required" ></textarea></p>
         <p><textarea name="answer" class="answer" placeholder="Answer.  &ldquo;The Cheesecake Factory&rdquo;" required="required" ></textarea></p>
@@ -19,9 +19,12 @@
 
 <div class="container clearfix" id="cards" ng-controller="PostsController">
   <div class="card-container" ng-repeat="post in posts">
-    <div class="card" ng-click="click(post)" ng-class="{true: 'expanded', false: 'contracted'}[post.expanded]">
-      <div class="card-question">{{ post.question }}</div>
-      <div class="card-date">{{ post.date }}</div>
+    <div class="card" ng-click="click(post, $event)" ng-class="{true: 'expanded', false: 'contracted'}[post.expanded]">
+      <p class="card-question">{{ post.question }}</p>
+      <p class="card-date">{{ post.date }}</p>
+      <form class="answer-form">
+        <p class="clearfix"><input type="text" name="answer" class="answer" placeholder="Answer" required="required" /> <input type="submit" class="submit" value="Submit" /></p>
+      </form>
     </div>
   </div>
 </div>

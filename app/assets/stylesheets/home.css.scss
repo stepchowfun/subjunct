@@ -87,7 +87,7 @@ body {
     }
   }
 
-  p {
+  p, form {
     margin: 16px 0;
   }
 
@@ -99,6 +99,82 @@ body {
     border: 1px solid #e2e2e2;
     margin: 32px 0;
   }
+}
+
+textarea, input[type="text"] {
+  display: inline-block;
+  border: 1px solid #ccc;
+  @include box-sizing(border-box);
+  background-color: #fff;
+  padding: 8px 12px;
+  color: #999;
+  @include animate("background-color, color, box-shadow", 0.5s);
+  @include border-radius(2px);
+  @include box-shadow(0px, 2px, 3px, 0px, #eee, true);
+
+  $placeholder-color: #ccc;
+  &::-webkit-input-placeholder {
+    @include animate("color", 0.5s);
+    color: $placeholder-color;
+  }
+  &:-moz-placeholder {
+    @include animate("color", 0.5s);
+    color: $placeholder-color;
+  }
+  &::-moz-placeholder {
+    @include animate("color", 0.5s);
+    color: $placeholder-color;
+  }
+  &:-ms-input-placeholder {
+    @include animate("color", 0.5s);
+    color: $placeholder-color;
+  }
+
+  &:focus {
+    color: #666;
+    $focus-color: #fff6cd;
+    background-color: $focus-color;
+    @include box-shadow(0px, 2px, 3px, 0px, #e7ddae, true);
+
+    &::-webkit-input-placeholder {
+      color: $focus-color;
+    }
+    &:-moz-placeholder {
+      color: $focus-color;
+    }
+    &::-moz-placeholder {
+      color: $focus-color;
+    }
+    &:-ms-input-placeholder {
+      color: $focus-color;
+    }
+  }
+}
+
+textarea {
+  resize: none;
+}
+
+input[type="submit"] {
+  display: inline-block;
+  font-weight: 300;
+  text-transform: uppercase;
+
+  @include animate("background-color", 0.2s);
+  @include box-sizing(border-box);
+  @include border-radius(2px);
+  border: none;
+  background-color: #69a55b;
+  padding: 8px 20px;
+  color: #ececec;
+
+  &:hover {
+    background-color: #4b7541;
+  }
+}
+
+input {
+  height: 40px;
 }
 
 /* Home Page Styles */
@@ -117,41 +193,40 @@ body {
     text-align: center;
   }
 
-  .question, .answer {
-    width: 100%;
-    height: 64px;
-  }
+  .compose-form {
+    margin: 0;
 
-  .message {
-    width: 100%;
-    height: 144px;
+    .question, .answer {
+      width: 100%;
+      height: 64px;
+    }
+
+    .message {
+      width: 100%;
+      height: 144px;
+    }
   }
 
   textarea, input[type="text"] {
-    display: inline-block;
-    border: 1px solid #333;
-    @include box-sizing(border-box);
-    background-color: #333;
-    padding: 8px 12px;
-    color: #999;
-    @include animate("background-color, color, box-shadow", 0.5s);
-    @include border-radius(2px);
     @include box-shadow(0px, 2px, 3px, 0px, #292929, true);
+    border: 1px solid #333;
+    background-color: #333;
+    color: #999;
 
     $placeholder-color: #555;
-    &::-webkit-input-placeholder { /* WebKit browsers */
+    &::-webkit-input-placeholder {
       @include animate("color", 0.5s);
       color: $placeholder-color;
     }
-    &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    &:-moz-placeholder {
       @include animate("color", 0.5s);
       color: $placeholder-color;
     }
-    &::-moz-placeholder { /* Mozilla Firefox 19+ */
+    &::-moz-placeholder {
       @include animate("color", 0.5s);
       color: $placeholder-color;
     }
-    &:-ms-input-placeholder { /* Internet Explorer 10+ */
+    &:-ms-input-placeholder {
       @include animate("color", 0.5s);
       color: $placeholder-color;
     }
@@ -177,21 +252,8 @@ body {
     }
   }
 
-  textarea {
-    resize: none;
-  }
-
   input[type="submit"] {
-    display: inline-block;
-    font-weight: 300;
-    text-transform: uppercase;
-
-    @include animate("background-color", 0.2s);
-    @include box-sizing(border-box);
-    @include border-radius(2px);
-    border: none;
     background-color: #69a55b;
-    padding: 8px 20px;
     color: #ececec;
 
     &:hover {
@@ -235,6 +297,18 @@ body {
         &:hover {
           @include box-shadow(0px, 5px, 10px, 0px, #ccc, false);
         }
+
+        .answer-form {
+          display: none;
+        }
+      }
+
+      :first-child {
+        margin-top: 0;
+      }
+
+      :last-child {
+        margin-bottom: 0;
       }
 
       .card-question {
@@ -243,6 +317,20 @@ body {
       .card-date {
         margin-top: 8px;
         color: #ccc;
+      }
+
+      .answer-form {
+        .answer {
+          display: block;
+          width: calc(100% - 102px);
+          float: left;
+        }
+
+        .submit {
+          display: block;
+          width: 97px;
+          float: right;
+        }
       }
     }
   }
@@ -269,17 +357,23 @@ body {
     background-color: #fff;
 
     #header {
-      text-align: right;
       line-height: 70px;
 
-      h1 {
-        text-align: left;
+      #title {
+        float: left;
+
+        @media (max-width: 767px) {
+          text-align: center;
+          line-height: 48px;
+          float: none;
+          padding-top: 12px;
+        }
+
         font-weight: 600;
         margin: 0;
         color: #333;
 
         a {
-          float: left;
           display: inline-block;
           font-weight: inherit;
 
@@ -296,12 +390,21 @@ body {
         }
       }
 
-      a.nav-link {
-        font-weight: 400;
-        font-size: 0.8em;
-        text-transform: uppercase;
-        display: inline-block;
-        padding: 0 16px;
+      #nav-links {
+        text-align: right;
+
+        @media (max-width: 767px) {
+          text-align: center;
+          line-height: 48px;
+        }
+
+        a {
+          font-weight: 400;
+          font-size: 0.8em;
+          text-transform: uppercase;
+          display: inline-block;
+          padding: 0 16px;
+        }
       }
     }
   }
