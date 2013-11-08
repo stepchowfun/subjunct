@@ -4,31 +4,31 @@
 <div id="banner">
   <div class="container">
     <h2>Write a secret message.  Guard it with secret knowledge.</h2>
-    <form class="compose-form" ng-controller="ComposeController" ng-submit="submit()" ng-init="show_errors=false">
+    <form class="compose-form" data-ng-controller="ComposeController" data-ng-submit="submit()" data-ng-init="show_errors=false">
       <div class="row compose-form-inputs">
         <div class="span4 offset2">
-          <p><textarea name="question" class="question" placeholder="Security question" required="required" ng-model="question"></textarea></p>
-          <p><textarea name="answer" class="answer" placeholder="Answer" required="required" ng-model="answer"></textarea></p>
+          <p><textarea name="question" class="question" placeholder="Security question" required="required" data-ng-model="question"></textarea></p>
+          <p><textarea name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="answer"></textarea></p>
         </div>
         <div class="span4">
-          <p><textarea name="message" class="message" placeholder="Secret message" required="required" ng-model="message"></textarea></p>
+          <p><textarea name="message" class="message" placeholder="Secret message" required="required" data-ng-model="message"></textarea></p>
         </div>
       </div>
       <div class="row compose-form-submit">
         <div class="span4 offset2">
           <p class="error-message">
-            <span ng-show="show_errors && error_message() != null">{{error_message()}}</span>
-            <span ng-show="!show_errors || error_message() == null">&nbsp;</span>
+            <span data-ng-show="show_errors && error_message() != null">{{error_message()}}</span>
+            <span data-ng-show="!show_errors || error_message() == null">&nbsp;</span>
           </p>
         </div>
         <div class="span4">
           <p class="right">
             <span class="counter">
-              <span ng-class="{'error-count': bad_count(question, max_question)}">{{remaining(question, max_question)}}</span> /
-              <span ng-class="{'error-count': bad_count(answer, max_answer)}">{{remaining(answer, max_answer)}}</span> /
-              <span ng-class="{'error-count': bad_count(message, max_message)}">{{remaining(message, max_message)}}</span>
+              <span data-ng-class="{'error-count': bad_count(question, max_question)}">{{remaining(question, max_question)}}</span> /
+              <span data-ng-class="{'error-count': bad_count(answer, max_answer)}">{{remaining(answer, max_answer)}}</span> /
+              <span data-ng-class="{'error-count': bad_count(message, max_message)}">{{remaining(message, max_message)}}</span>
             </span>
-            <input type="submit" class="submit" value="Subjunct" ng-mouseover="show_errors=true" ng-mouseout="show_errors=false" />
+            <input type="submit" class="submit" value="Subjunct" data-ng-mouseover="show_errors=true" data-ng-mouseout="show_errors=false" />
           </p>
         </div>
       </div>
@@ -36,9 +36,9 @@
   </div>
 </div>
 
-<div class="container clearfix" id="cards" ng-controller="PostsController">
-  <div class="card-container" ng-repeat="post in posts">
-    <div class="card" ng-click="click(post, $event)" ng-class="{true: 'expanded', false: 'contracted'}[post.expanded]">
+<div class="container clearfix" id="cards" data-ng-controller="PostsController">
+  <div class="card-container" data-ng-repeat="post in posts">
+    <div class="card" data-ng-click="click(post, $event)" data-ng-class="{true: 'expanded', false: 'contracted'}[post.expanded]">
       <p class="card-question">{{post.question}}</p>
       <p class="card-date">{{post.date}}</p>
       <form class="answer-form">
