@@ -52,3 +52,6 @@ gem 'unicorn'
 
 # needed for Heroku
 gem 'rails_12factor', group: :production
+
+# use Ruby 2.0.0
+ruby '2.0.0'
