@@ -160,12 +160,12 @@ input[type="submit"] {
   @include animate("background-color", 0.2s);
   @include border-radius(2px);
   border: none;
-  background-color: #69a55b;
+  background-color: #4b7541;
   padding: 8px 20px;
-  color: #ececec;
+  color: #c6d8c1;
 
   &:hover {
-    background-color: #4b7541;
+    background-color: #3a4f35;
     color: #9bb594;
   }
 

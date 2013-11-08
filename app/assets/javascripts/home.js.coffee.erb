@@ -4,9 +4,6 @@ window.ComposeController = ($scope) ->
   $scope.max_answer = 50
   $scope.max_message = 400
 
-  $scope.test = () ->
-    console.log("hello")
-
   $scope.remaining = (text, max_count) ->
     if !text?
       return max_count
@@ -19,11 +16,11 @@ window.ComposeController = ($scope) ->
 
   $scope.error_message = () ->
     if !$scope.question? or $scope.question == ''
-      return '<strong>Step 1:</strong> Enter a security question.'
+      return 'Enter a security question.'
     if !$scope.answer? or $scope.answer == ''
-      return '<strong>Step 2:</strong> Enter an answer.'
+      return 'Enter an answer to the security question.'
     if !$scope.message? or $scope.message == ''
-      return '<strong>Step 3:</strong> Enter a secret message.'
+      return 'Enter a secret message.'
     if $scope.question.length > $scope.max_question
       return 'The security question is too long.'
     if $scope.answer.length > $scope.max_answer
@@ -31,6 +28,10 @@ window.ComposeController = ($scope) ->
     if $scope.message.length > $scope.max_message
       return 'The secret message is too long.'
     return null
+
+  $scope.submit = () ->
+    if $scope.error_message() == null
+      console.log "yay"
 
 ComposeController.$inject = ['$scope']
 
