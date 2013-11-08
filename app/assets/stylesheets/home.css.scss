@@ -280,18 +280,19 @@ input {
     .card {
       @include box-shadow(0px, 2px, 4px, 0px, #ddd, false);
       @include border-radius(2px);
-      @include animate("height, box-shadow", 0.2s);
+      @include animate("box-shadow", 0.2s);
       background-color: #fff;
       padding: 16px;
       border: 1px solid #e2e2e2;
       overflow: hidden;
 
       &.expanded {
-        height: 200px;
+        .answer-form {
+          max-height: 64px;
+        }
       }
 
       &.contracted {
-        height: 100px;
         cursor: pointer;
 
         &:hover {
@@ -299,7 +300,7 @@ input {
         }
 
         .answer-form {
-          display: none;
+          max-height: 0px;
         }
       }
 
@@ -320,6 +321,9 @@ input {
       }
 
       .answer-form {
+        @include animate("max-height", 0.2s);
+        overflow: hidden;
+
         .answer {
           display: block;
           width: calc(100% - 102px);

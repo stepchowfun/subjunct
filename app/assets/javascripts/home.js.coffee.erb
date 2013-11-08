@@ -11,14 +11,14 @@ window.PostsController = ($scope) ->
     {
       id: 2,
       date: '10 minutes ago',
-      question: 'What\'s the capital or Rhode Island?',
+      question: 'What\'s the capital of Rhode Island?',
       expanded: false,
     },
   ]
 
   $scope.click = (post, event) ->
     if !post.expanded
-      setTimeout (() ->$(event.target).closest(".card").find(".answer-form .answer").focus()), 200
+      setTimeout (() ->$(event.target).closest(".card").find(".answer-form .answer").focus()), 0
     post.expanded = true
     clicking_post = post
 
