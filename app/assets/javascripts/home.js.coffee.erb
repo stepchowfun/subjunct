@@ -18,7 +18,7 @@ window.PostsController = ($scope) ->
 
   $scope.click = (post, event) ->
     if !post.expanded
-      setTimeout (() ->$(event.target).closest(".card").find(".answer-form .answer").focus()), 0
+      setTimeout (() -> $(event.target).closest(".card").find(".answer-form .answer").focus().select()), 0
     post.expanded = true
     clicking_post = post
 

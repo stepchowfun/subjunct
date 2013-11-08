@@ -113,39 +113,35 @@ textarea, input[type="text"] {
 
   $placeholder-color: #ccc;
   &::-webkit-input-placeholder {
-    @include animate("color", 0.5s);
     color: $placeholder-color;
   }
   &:-moz-placeholder {
-    @include animate("color", 0.5s);
     color: $placeholder-color;
   }
   &::-moz-placeholder {
-    @include animate("color", 0.5s);
     color: $placeholder-color;
   }
   &:-ms-input-placeholder {
-    @include animate("color", 0.5s);
     color: $placeholder-color;
   }
 
   &:focus {
     color: #666;
-    $focus-color: #fff6cd;
-    background-color: $focus-color;
+    background-color: #fff6cd;
     @include box-shadow(0px, 2px, 3px, 0px, #e7ddae, true);
 
+    $placeholder-color: #bbb;
     &::-webkit-input-placeholder {
-      color: $focus-color;
+      color: $placeholder-color;
     }
     &:-moz-placeholder {
-      color: $focus-color;
+      color: $placeholder-color;
     }
     &::-moz-placeholder {
-      color: $focus-color;
+      color: $placeholder-color;
     }
     &:-ms-input-placeholder {
-      color: $focus-color;
+      color: $placeholder-color;
     }
   }
 }
@@ -213,39 +209,35 @@ input {
 
     $placeholder-color: #555;
     &::-webkit-input-placeholder {
-      @include animate("color", 0.5s);
       color: $placeholder-color;
     }
     &:-moz-placeholder {
-      @include animate("color", 0.5s);
       color: $placeholder-color;
     }
     &::-moz-placeholder {
-      @include animate("color", 0.5s);
       color: $placeholder-color;
     }
     &:-ms-input-placeholder {
-      @include animate("color", 0.5s);
       color: $placeholder-color;
     }
 
     &:focus {
       color: #aaa;
-      $focus-color: #444;
-      background-color: $focus-color;
+      background-color: #444;
       @include box-shadow(0px, 2px, 3px, 0px, #333, true);
 
+      $placeholder-color: #707070;
       &::-webkit-input-placeholder {
-        color: $focus-color;
+        color: $placeholder-color;
       }
       &:-moz-placeholder {
-        color: $focus-color;
+        color: $placeholder-color;
       }
       &::-moz-placeholder {
-        color: $focus-color;
+        color: $placeholder-color;
       }
       &:-ms-input-placeholder {
-        color: $focus-color;
+        color: $placeholder-color;
       }
     }
   }
@@ -276,7 +268,7 @@ input {
 
     .card {
       @include box-shadow(0px, 2px, 4px, 0px, #ddd, false);
-      @include border-radius(2px);
+      @include border-radius(3px);
       @include animate("box-shadow", 0.2s);
       background-color: #fff;
       padding: 16px;
