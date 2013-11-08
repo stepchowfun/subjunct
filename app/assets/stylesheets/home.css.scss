@@ -58,12 +58,6 @@ $anchor-color-hover: #ba2b18;
   transition-duration:         $duration;
 }
 
-@mixin box-sizing($mode) {
-  -webkit-box-sizing: $mode;
-  -moz-box-sizing: $mode;
-  box-sizing: $mode;
-}
-
 /* Global Styles */
 
 body {
@@ -74,6 +68,12 @@ body {
 
   *:focus, *:active {
     outline: 0;
+  }
+
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    box-sizing:         border-box;
   }
 
   a {
@@ -104,7 +104,6 @@ body {
 textarea, input[type="text"] {
   display: inline-block;
   border: 1px solid #ccc;
-  @include box-sizing(border-box);
   background-color: #fff;
   padding: 8px 12px;
   color: #999;
@@ -161,7 +160,6 @@ input[type="submit"] {
   text-transform: uppercase;
 
   @include animate("background-color", 0.2s);
-  @include box-sizing(border-box);
   @include border-radius(2px);
   border: none;
   background-color: #69a55b;
@@ -273,7 +271,6 @@ input {
       width: 100%;
     }
 
-    @include box-sizing(border-box);
     padding: 12px 12px;
     float: left;
 
@@ -326,14 +323,8 @@ input {
 
         .answer {
           display: block;
-          width: calc(100% - 102px);
+          width: 100%;
           float: left;
-        }
-
-        .submit {
-          display: block;
-          width: 97px;
-          float: right;
         }
       }
     }
