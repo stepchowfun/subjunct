@@ -4,8 +4,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 group :production do
-  # Use postgresql as the database for Active Record
-  gem 'pg'
+  # Use mysql2 as the database for Active Record
+  gem 'mysql2'
 end
 group :development, :test do
   # Use sqlite3 as the database for Active Record
