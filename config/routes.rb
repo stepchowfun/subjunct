@@ -1,7 +1,9 @@
 Subjunct::Application.routes.draw do
   root to: 'home#index'
-  get '/about', to: "home#about"
-  
+  get '/about', to: 'home#about'
+  post '/new', to: 'home#new'
+  get '/:id', to: 'home#post'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

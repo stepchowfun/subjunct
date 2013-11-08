@@ -1,8 +1,12 @@
+<% environment.context_class.instance_eval { include ApplicationHelper } %>
+
 window.ComposeController = ($scope) ->
   # character limits
-  $scope.max_question = 100
-  $scope.max_answer = 50
-  $scope.max_message = 400
+  $scope.max_question = <%= MAX_QUESTION %>
+  $scope.max_answer = <%= MAX_ANSWER %>
+  $scope.max_message = <%= MAX_MESSAGE %>
+
+  $scope.submitted = false
 
   $scope.remaining = (text, max_count) ->
     if !text?
@@ -29,40 +33,34 @@ window.ComposeController = ($scope) ->
       return 'The secret message is too long.'
     return null
 
-  $scope.submit = () ->
-    if $scope.error_message() == null
-      console.log "yay"
+  $scope.submit = (event) ->
+    if $scope.error_message() == null and !$scope.submitted
+      $scope.submitted = true
+      $(event.target).parent().find('.submit').prop('disabled', true)
+      $.post("/new", {
+        question: $scope.question,
+        answer: $scope.answer,
+        message: $scope.message,
+      }).done (data) ->
+        if data.status == "ok"
+          window.location = "/" + data.post.id
 
 ComposeController.$inject = ['$scope']
 
 window.PostsController = ($scope) ->
+  $scope.posts = posts
   clicking_post = null
 
-  $scope.posts = [
-    {
-      id: 1,
-      date: '5 minutes ago',
-      question: 'Hey love! Where did we eat last Friday?',
-      expanded: false,
-    },
-    {
-      id: 2,
-      date: '10 minutes ago',
-      question: 'What\'s the capital of Rhode Island?',
-      expanded: false,
-    },
-  ]
-
-  $scope.click = (post, event) ->
+  $scope.expand = (post, event) ->
     if !post.expanded
       setTimeout (() -> $(event.target).closest('.card').find('.answer-form .answer').focus().select()), 0
     post.expanded = true
-    clicking_post = post
+    clicking_post = post.id
 
   $(document).click () ->
     $scope.$apply () ->
       for post in $scope.posts
-        if clicking_post != post
+        if clicking_post != post.id
           post.expanded = false
       clicking_post = null
 
