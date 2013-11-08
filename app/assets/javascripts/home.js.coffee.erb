@@ -36,6 +36,8 @@ window.ComposeController = ($scope) ->
       return 'The secret message is too long.'
     return null
 
+ComposeController.$inject = ['$scope']
+
 window.PostsController = ($scope) ->
   clicking_post = null
 
