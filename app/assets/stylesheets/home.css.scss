@@ -170,8 +170,8 @@ input[type="submit"] {
   }
 
   &:disabled {
-    background-color: #4b7541;
-    color: #9bb594;
+    background-color: #3a4f35;
+    color: #74886f;
   }
 }
 
@@ -221,6 +221,10 @@ input {
         display: inline-block;
         margin-right: 20px;
         line-height: $input-height;
+      }
+
+      .error-count {
+        color: #a00;
       }
 
       .error-message {

@@ -14,29 +14,20 @@ window.ComposeController = ($scope) ->
 
   $scope.bad_count = (text, max_count) ->
     if !text?
-      return max_count
+      return false
     return text.length > max_count
-
-  $scope.form_empty = () ->
-    if $scope.question? and $scope.question != ""
-      return false
-    if $scope.answer? and $scope.answer != ""
-      return false
-    if $scope.message? and $scope.message != ""
-      return false
-    return true
 
   $scope.error_message = () ->
     if !$scope.question? or $scope.question == ''
-      return 'Enter a security question.'
+      return '<strong>Step 1:</strong> Enter a security question.'
     if !$scope.answer? or $scope.answer == ''
-      return 'Enter an answer to the security question.'
+      return '<strong>Step 2:</strong> Enter an answer.'
     if !$scope.message? or $scope.message == ''
-      return 'Enter a secret message.'
+      return '<strong>Step 3:</strong> Enter a secret message.'
     if $scope.question.length > $scope.max_question
       return 'The security question is too long.'
     if $scope.answer.length > $scope.max_answer
-      return 'The answer to the security question is too long.'
+      return 'The answer is too long.'
     if $scope.message.length > $scope.max_message
       return 'The secret message is too long.'
     return null
