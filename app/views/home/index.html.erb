@@ -4,22 +4,33 @@
 <div id="banner">
   <div class="container">
     <h2>Write a secret message.  Guard it with secret knowledge.</h2>
-    <form class="row compose-form" ng-controller="ComposeController" ng-submit="submit()">
-      <div class="span4 offset2">
-        <p><textarea name="question" class="question" placeholder="Security question" required="required" ng-model="question" ></textarea></p>
-        <p><textarea name="answer" class="answer" placeholder="Answer" required="required" ng-model="answer" ></textarea></p>
-        <p class="error" ng-show="show_error">{{error_message()}}</p>
+    <form class="compose-form" ng-controller="ComposeController" ng-submit="submit()">
+      <div class="row compose-form-inputs">
+        <div class="span4 offset2">
+          <p><textarea name="question" class="question" placeholder="Security question" required="required" ng-model="question"></textarea></p>
+          <p><textarea name="answer" class="answer" placeholder="Answer" required="required" ng-model="answer"></textarea></p>
+        </div>
+        <div class="span4">
+          <p><textarea name="message" class="message" placeholder="Secret message" required="required" ng-model="message" /></textarea></p>
+        </div>
       </div>
-      <div class="span4">
-        <p><textarea name="message" class="message" placeholder="Secret message" required="required" ng-model="message" /></textarea></p>
-        <p class="right">
-          <span class="counter">
-            <span ng-class="{error: bad_count(question, max_question)}">{{remaining(question, max_question)}}</span> /
-            <span ng-class="{error: bad_count(answer, max_answer)}">{{remaining(answer, max_answer)}}</span> /
-            <span ng-class="{error: bad_count(message, max_message)}">{{remaining(message, max_message)}}</span>
-          </span>
-          <input type="submit" class="submit" value="Subjunct" />
-        </p>
+      <div class="row compose-form-submit">
+        <div class="span4 offset2">
+          <p class="error-message">
+            <span ng-show="!form_empty() && error_message() != null">{{error_message()}}</span>
+            <span ng-show="form_empty() || error_message() == null">&nbsp;</span>
+          </p>
+        </div>
+        <div class="span4">
+          <p class="right">
+            <span class="counter">
+              <span ng-class="{error: bad_count(question, max_question)}">{{remaining(question, max_question)}}</span> /
+              <span ng-class="{error: bad_count(answer, max_answer)}">{{remaining(answer, max_answer)}}</span> /
+              <span ng-class="{error: bad_count(message, max_message)}">{{remaining(message, max_message)}}</span>
+            </span>
+            <input type="submit" class="submit" value="Subjunct" ng-disabled="error_message() != null" />
+          </p>
+        </div>
       </div>
     </form>
   </div>

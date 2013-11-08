@@ -1,25 +1,30 @@
 window.ComposeController = ($scope) ->
+  # character limits
   $scope.max_question = 100
   $scope.max_answer = 50
   $scope.max_message = 400
-  $scope.show_error = false
 
-  $scope.$watch 'question', (() -> $scope.show_error = false), true
-  $scope.$watch 'answer', (() -> $scope.show_error = false), true
-  $scope.$watch 'message', (() -> $scope.show_error = false), true
-
-  $scope.submit = () ->
-    $scope.show_error = true
+  $scope.test = () ->
+    console.log("hello")
 
   $scope.remaining = (text, max_count) ->
     if !text?
-      text = ''
+      return max_count
     return max_count - text.length
 
   $scope.bad_count = (text, max_count) ->
     if !text?
-      text = ''
+      return max_count
     return text.length > max_count
+
+  $scope.form_empty = () ->
+    if $scope.question? and $scope.question != ""
+      return false
+    if $scope.answer? and $scope.answer != ""
+      return false
+    if $scope.message? and $scope.message != ""
+      return false
+    return true
 
   $scope.error_message = () ->
     if !$scope.question? or $scope.question == ''
