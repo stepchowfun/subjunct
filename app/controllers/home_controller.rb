@@ -18,6 +18,7 @@ class HomeController < ApplicationController
         :ago => time_ago_in_words(post.created_at) + ' ago',
         :expanded => false,
         :answered => false,
+        :attempted => false,
         :answer => '',
         :message => '',
       }
@@ -50,6 +51,7 @@ class HomeController < ApplicationController
         :ago => time_ago_in_words(post.created_at) + ' ago',
         :expanded => false,
         :answered => false,
+        :attempted => false,
         :answer => '',
         :message => '',
       }

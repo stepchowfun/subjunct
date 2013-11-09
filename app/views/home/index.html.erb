@@ -67,10 +67,13 @@
         <div class="card-extras" data-ng-show="post.expanded">
           <form class="answer-form" data-ng-show="!post.answered" data-ng-submit="submit($event, post)">
             <div class="card-row">
-              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" />
+              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.answer" />
             </div>
             <input type="submit" class="hidden" value="Answer" />
           </form>
+          <div data-ng-show="post.attempted && !post.answered">
+            <p class="card-row wrong-answer">Sorry, wrong answer.</p>
+          </div>
           <div data-ng-show="post.answered">
             <hr class="card-row" />
             <h3 class="card-row">Answer</h3>
@@ -99,10 +102,13 @@
         <div class="card-extras" data-ng-show="post.expanded">
           <form class="answer-form" data-ng-show="!post.answered" data-ng-submit="submit($event, post)">
             <div class="card-row">
-              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" />
+              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.answer" />
             </div>
             <input type="submit" class="hidden" value="Answer" />
           </form>
+          <div data-ng-show="post.attempted && !post.answered">
+            <p class="card-row wrong-answer">Sorry, wrong answer.</p>
+          </div>
           <div data-ng-show="post.answered">
             <hr class="card-row" />
             <h3 class="card-row">Answer</h3>

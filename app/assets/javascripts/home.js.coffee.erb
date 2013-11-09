@@ -103,20 +103,21 @@ window.PostsController = ($scope) ->
         if clicking_post != post.id
           if post.expanded
             post.expanded = false
+            if !post.answered
+              post.attempted = false
+              post.answer = ''
       clicking_post = null
 
   $scope.submit = (event, post) ->
-    answer = $(event.target).parent().find('.answer').val()
     $.post("/check", {
       id: post.id,
-      answer: answer,
+      answer: post.answer,
     }).done (data) ->
       $scope.$apply () ->
+        post.attempted = true
         if data.status == "ok"      
           post.answered = true
           post.answer = data.answer
           post.message = data.message
-        else
-          console.log "nope"
 
 PostsController.$inject = ['$scope']
