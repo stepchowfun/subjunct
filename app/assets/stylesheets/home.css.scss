@@ -341,7 +341,7 @@ input, .button {
     padding: 16px;
     border: 1px solid #e2e2e2;
     overflow: hidden;
-    margin: 12px 0;
+    margin: $paragraph-margin 0;
 
     &.expanded {
     }
