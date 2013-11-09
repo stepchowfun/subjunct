@@ -49,6 +49,10 @@ ComposeController.$inject = ['$scope']
 
 window.PostsController = ($scope) ->
   $scope.posts = posts
+  $scope.columns = [[], [], []]
+  for i in [0...$scope.posts.length]
+    $scope.columns[i % $scope.columns.length].push($scope.posts[i])
+
   clicking_post = null
 
   $scope.expand = (post, event) ->
@@ -69,7 +73,6 @@ window.PostsController = ($scope) ->
         if clicking_post != post.id
           if post.expanded
             post.expanded = false
-            setTimeout (() -> $('#cards').masonry()), 200
       clicking_post = null
 
 PostsController.$inject = ['$scope']

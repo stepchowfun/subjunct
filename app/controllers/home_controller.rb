@@ -10,7 +10,6 @@ class HomeController < ApplicationController
       {
         :id => post.id,
         :question => post.question,
-        :message => post.message,
         :date => time_ago_in_words(post.created_at) + " ago",
         :expanded => false,
       }
