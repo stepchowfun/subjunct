@@ -57,13 +57,11 @@ window.PostsController = ($scope) ->
     post.expanded = true
     clicking_post = post.id
     setTimeout (() -> clicking_post = null), 0
-    setTimeout (() -> $('#cards').masonry()), 200
 
   $scope.contract = (post, event) ->
     post.expanded = false
     clicking_post = post.id
     setTimeout (() -> clicking_post = null), 0
-    setTimeout (() -> $('#cards').masonry()), 200
 
   $(document).click () ->
     $scope.$apply () ->

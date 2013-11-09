@@ -289,8 +289,8 @@ input, .button {
 }
 
 #cards {
-  padding-top: 12px + 16px;
-  padding-bottom: 16px;
+  padding-top: $paragraph-margin;
+  padding-bottom: $paragraph-margin;
 
   .card {
     @include box-shadow(0px, 2px, 4px, 0px, #ddd, false);
@@ -300,10 +300,13 @@ input, .button {
     padding: 16px;
     border: 1px solid #e2e2e2;
     overflow: hidden;
-    margin-bottom: 12px;
-    width: 30%;
+    margin: 12px 0;
 
     &.expanded {
+      .answer-form {
+        max-height: 64px;
+        margin-top: 8px;
+      }
     }
 
     &.contracted {
@@ -311,6 +314,11 @@ input, .button {
 
       &:hover {
         @include box-shadow(0px, 5px, 10px, 0px, #ccc, false);
+      }
+
+      .answer-form {
+        max-height: 0;
+        margin-top: 0;
       }
     }
 
@@ -343,12 +351,14 @@ input, .button {
     }
 
     .answer-form {
-      margin-top: 8px;
-      margin-bottom: 0px;
+      @include animate("max-height, margin-top", 0.2s);
+      overflow: hidden;
+      margin: 0;
 
       .answer {
         display: block;
         width: 100%;
+        float: left;
       }
     }
   }
