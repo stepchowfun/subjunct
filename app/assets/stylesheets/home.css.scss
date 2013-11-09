@@ -197,6 +197,10 @@ input, .button {
     text-transform: uppercase;
     margin: 0 0 $paragraph-margin 0;
     text-align: center;
+
+    @media (min-width: 768px) and (max-width: 1150px) {
+      font-size: 1.4em;
+    }
   }
 
   .compose-form {
