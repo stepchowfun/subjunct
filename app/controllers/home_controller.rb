@@ -1,6 +1,6 @@
 include ActionView::Helpers::DateHelper
 include ApplicationHelper
-include ERB::Util
+require 'rdiscount'
 
 class HomeController < ApplicationController
   # ensure that HTTPS is used
@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   def index
     @posts = Post.order('created_at DESC').limit(PAGE_SIZE + 1).map { |post|
       {
-        :id => post.id,
+        :id => encode_num(post.id),
         :question => post.question,
         :date => post.created_at,
         :ago => time_ago_in_words(post.created_at) + ' ago',
@@ -29,10 +29,10 @@ class HomeController < ApplicationController
 
   def post
     begin
-      id = params[:id].to_i
+      id = decode_num(params[:id]).to_i
       post = Post.find(id)
       @post = {
-        :id => post.id,
+        :id => encode_num(post.id),
         :question => post.question,
         :date => post.created_at,
         :ago => time_ago_in_words(post.created_at) + ' ago',
@@ -56,7 +56,7 @@ class HomeController < ApplicationController
 
     posts = Post.where('created_at < ?', date).order('created_at DESC').limit(PAGE_SIZE + 1).map { |post|
       {
-        :id => post.id,
+        :id => encode_num(post.id),
         :question => post.question,
         :date => post.created_at,
         :ago => time_ago_in_words(post.created_at) + ' ago',
@@ -73,14 +73,14 @@ class HomeController < ApplicationController
 
   def check
     begin
-      id = params[:id].to_i
+      id = decode_num(params[:id]).to_i
       post = Post.find(id)
     rescue
       return render :json => { :status => 'error', :reason => 'Bad post ID.' }
     end
 
     if check_answers(post.answer, params[:answer])
-      message = (html_escape post.message).split("\n").select{ |line| line != "" }.map{ |line| "<p>" + line + "</p>" }.join
+      message = RDiscount.new(post.message).to_html
       return render :json => { :status => 'ok', :message => message, :answer => post.answer }
     else
       return render :json => { :status => 'error', :reason => 'Wrong answer.' }
@@ -102,7 +102,18 @@ class HomeController < ApplicationController
     end
 
     post = Post.create :question => params[:question], :answer => params[:answer], :message => params[:message]
-    return render :json => { :status => 'ok', :post => post }
+    return render :json => { :status => 'ok', :post => {
+        :id => encode_num(post.id),
+        :question => post.question,
+        :date => post.created_at,
+        :ago => time_ago_in_words(post.created_at) + ' ago',
+        :expanded => false,
+        :answered => false,
+        :attempted => false,
+        :answer => '',
+        :message => '',
+      }
+    }
   end
 
 private

@@ -46,7 +46,7 @@ window.ComposeController = ($scope) ->
         message: $scope.message,
       }).done (data) ->
         if data.status == "ok"
-          window.location = "/" + data.post.id
+          window.location = "/+" + data.post.id
 
   $(".compose-form .question").keydown (e) ->
     if e.keyCode == 13
@@ -109,10 +109,7 @@ window.PostsController = ($scope, $sce) ->
       clicking_post = null
 
   $scope.submit = (event, post) ->
-    $.post("/check", {
-      id: post.id,
-      answer: post.answer,
-    }).done (data) ->
+    $.post("/check/+" + post.id, { answer: post.answer }).done (data) ->
       $scope.$apply () ->
         post.attempted = true
         if data.status == "ok"      
@@ -130,10 +127,7 @@ window.PostController = ($scope, $sce) ->
     setTimeout (() -> $scope.submit(event)), 0
 
   $scope.submit = (event) ->
-    $.post("/check", {
-      id: post.id,
-      answer: post.answer,
-    }).done (data) ->
+    $.post("/check/+" + post.id, { answer: post.answer }).done (data) ->
       $scope.$apply () ->
         post.attempted = true
         if data.status == "ok"      

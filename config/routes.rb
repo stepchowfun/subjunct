@@ -3,8 +3,8 @@ Subjunct::Application.routes.draw do
   get '/about', to: 'home#about'
   post '/new', to: 'home#new'
   get '/batch', to: 'home#batch'
-  post 'check', to: 'home#check'
-  get '/:id', to: 'home#post'
+  post '/check/+:id', to: 'home#check'
+  get '/+:id', to: 'home#post'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

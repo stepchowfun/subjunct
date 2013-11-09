@@ -61,7 +61,7 @@
             <a data-ng-show="!post.expanded" href="#" data-ng-click="expand(post, $event); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-down"></i></a>
             <a data-ng-show="post.expanded" href="#" data-ng-click="contract(post, $event); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-up"></i></a>
             &nbsp;
-            <a href="/{{post.id}}" data-ng-click="$event.stopPropagation()"><i class="fa fa-link"></i></a>
+            <a href="/+{{post.id}}" data-ng-click="$event.stopPropagation()"><i class="fa fa-link"></i></a>
           </div>
         </div>
         <div class="card-extras" data-ng-show="post.expanded">
@@ -96,7 +96,7 @@
             <a data-ng-show="!post.expanded" href="#" data-ng-click="expand(post, $event); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-down"></i></a>
             <a data-ng-show="post.expanded" href="#" data-ng-click="contract(post, $event); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-up"></i></a>
             &nbsp;
-            <a href="/{{post.id}}" data-ng-click="$event.stopPropagation()"><i class="fa fa-link"></i></a>
+            <a href="/+{{post.id}}" data-ng-click="$event.stopPropagation()"><i class="fa fa-link"></i></a>
           </div>
         </div>
         <div class="card-extras" data-ng-show="post.expanded">
