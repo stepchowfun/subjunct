@@ -2,6 +2,7 @@ Subjunct::Application.routes.draw do
   root to: 'home#index'
   get '/about', to: 'home#about'
   post '/new', to: 'home#new'
+  get '/batch', to: 'home#batch'
   get '/:id', to: 'home#post'
 
   # The priority is based upon order of creation: first created -> highest priority.
