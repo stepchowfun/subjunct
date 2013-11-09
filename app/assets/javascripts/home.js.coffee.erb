@@ -65,9 +65,8 @@ window.PostsController = ($scope) ->
       if !$scope.loading and !$scope.no_more
         $scope.$apply () ->
           $scope.loading = true
-          $.get("/batch", { date: $scope.last_timestamp }).done (data) ->
+          $.ajax({url: "/batch", data: { date: $scope.last_timestamp } }).success((data) ->
             $scope.$apply () ->
-              $scope.loading = false
               if data.status == "ok"
                 $scope.no_more = !data.more
                 for post in data.posts
@@ -75,6 +74,7 @@ window.PostsController = ($scope) ->
                   $scope.posts.push(post)
                 if posts.length > 0
                   $scope.last_timestamp = posts[posts.length - 1].date
+          ).complete -> ($scope.$apply (() -> $scope.loading = false))
 
   clicking_post = null
 
