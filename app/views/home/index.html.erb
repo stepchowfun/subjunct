@@ -7,25 +7,26 @@
 
 <div id="banner">
   <div class="container">
-    <h2>Write a secret message.  Guard it with secret knowledge.</h2>
     <form name="composeForm" class="compose-form" data-ng-controller="ComposeController" data-ng-submit="submit($event)" data-ng-init="show_errors=false">
       <div class="row compose-form-inputs">
-        <div class="span4 offset2">
+        <div class="span5 offset1">
+          <h2>Write a secret message</h2>
+          <p><textarea name="message" class="message" placeholder="Secret message" required="required" data-ng-model="message"></textarea></p>
+        </div>
+        <div class="span5">
+          <h2>Guarded by secret knowledge</h2>
           <p><textarea name="question" class="question" placeholder="Security question" required="required" data-ng-model="question"></textarea></p>
           <p><textarea name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="answer"></textarea></p>
         </div>
-        <div class="span4">
-          <p><textarea name="message" class="message" placeholder="Secret message" required="required" data-ng-model="message"></textarea></p>
-        </div>
       </div>
       <div class="row compose-form-submit">
-        <div class="span4 offset2">
+        <div class="span5 offset1 phone-hidden">
           <p class="error-message">
             <span data-ng-show="show_errors && error_message() != null">{{error_message()}}</span>
             <span data-ng-show="!show_errors || error_message() == null">&nbsp;</span>
           </p>
         </div>
-        <div class="span4">
+        <div class="span5">
           <p class="right">
             <span class="counter">
               <span data-ng-class="{ 'error-count': bad_count(question, max_question) }">{{remaining(question, max_question)}}</span> /
@@ -41,24 +42,22 @@
   </div>
 </div>
 
-<div class="container clearfix" id="cards" data-ng-controller="PostsController">
-  <div class="card-container" data-ng-repeat="post in posts">
-    <div class="card" data-ng-click="expand(post, $event)" data-ng-class="{true: 'expanded', false: 'contracted'}[post.expanded]">
-      <div class="card-question">{{post.question}}</div>
-      <div class="card-details clearfix">
-        <div class="card-date">
-          <i class="fa fa-clock-o"></i> {{post.date}}
-        </div>
-        <div class="card-options">
-          <a data-ng-show="!post.expanded" href="#" data-ng-click="expand(post, $event); $event.preventDefault();"><i class="fa fa-caret-down"></i></a>
-          <a data-ng-show="post.expanded" href="#" data-ng-click="post.expanded=false; $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-up"></i></a>
-          &nbsp;
-          <a href="/{{post.id}}"><i class="fa fa-link"></i></a>
-        </div>
+<div class="container js-masonry" id="cards" data-ng-controller="PostsController" data-masonry-options='{ "itemSelector": ".card", "gutter": 12, "transitionDuration": "0s" }' >
+  <div class="card" data-ng-repeat="post in posts" data-ng-click="expand(post, $event)" data-ng-class="{true: 'expanded', false: 'contracted'}[post.expanded]">
+    <div class="card-question">{{post.question}}</div>
+    <div class="card-details clearfix">
+      <div class="card-date">
+        <i class="fa fa-clock-o"></i> {{post.date}}
       </div>
-      <form class="answer-form">
-        <input type="text" name="answer" class="answer" placeholder="Answer" required="required" />
-      </form>
+      <div class="card-options">
+        <a data-ng-show="!post.expanded" href="#" data-ng-click="expand(post, $event); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-down"></i></a>
+        <a data-ng-show="post.expanded" href="#" data-ng-click="contract(post, $event);  $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-up"></i></a>
+        &nbsp;
+        <a href="/{{post.id}}" data-ng-click="$event.stopPropagation()"><i class="fa fa-link"></i></a>
+      </div>
     </div>
+    <form class="answer-form" data-ng-show="post.expanded">
+      <input type="text" name="answer" class="answer" placeholder="Answer" required="required" />
+    </form>
   </div>
 </div>

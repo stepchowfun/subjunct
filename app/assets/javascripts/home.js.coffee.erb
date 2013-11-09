@@ -56,12 +56,22 @@ window.PostsController = ($scope) ->
       setTimeout (() -> $(event.target).closest('.card').find('.answer-form .answer').focus().select()), 0
     post.expanded = true
     clicking_post = post.id
+    setTimeout (() -> clicking_post = null), 0
+    setTimeout (() -> $('#cards').masonry()), 200
+
+  $scope.contract = (post, event) ->
+    post.expanded = false
+    clicking_post = post.id
+    setTimeout (() -> clicking_post = null), 0
+    setTimeout (() -> $('#cards').masonry()), 200
 
   $(document).click () ->
     $scope.$apply () ->
       for post in $scope.posts
         if clicking_post != post.id
-          post.expanded = false
+          if post.expanded
+            post.expanded = false
+            setTimeout (() -> $('#cards').masonry()), 200
       clicking_post = null
 
 PostsController.$inject = ['$scope']
