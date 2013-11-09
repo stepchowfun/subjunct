@@ -4,6 +4,10 @@
   display: none;
 }
 
+.muted {
+  color: #ccc;
+}
+
 .right {
   text-align: right;
 }
@@ -93,6 +97,11 @@ body {
 
   p, form {
     margin: $paragraph-margin 0;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #eee;
   }
 
   .page {
@@ -211,14 +220,19 @@ input, .button {
         margin-top: 0;
       }
 
-      .question, .answer {
-        width: 100%;
-        height: 64px;
-      }
-
       .message {
         width: 100%;
         height: 128px + $paragraph-margin;
+      }
+
+      .question {
+        width: 100%;
+        height: 128px - $input-height;
+      }
+
+      .answer {
+        width: 100%;
+        height: $input-height;
       }
     }
 
@@ -307,10 +321,6 @@ input, .button {
     margin: 12px 0;
 
     &.expanded {
-      .answer-form {
-        max-height: 64px;
-        margin-top: 8px;
-      }
     }
 
     &.contracted {
@@ -319,28 +329,20 @@ input, .button {
       &:hover {
         @include box-shadow(0px, 5px, 10px, 0px, #ccc, false);
       }
-
-      .answer-form {
-        max-height: 0;
-        margin-top: 0;
-      }
     }
 
-    :first-child {
+    > .card-row:first-child {
       margin-top: 0;
     }
 
-    :last-child {
-      margin-bottom: 0;
-    }
-
-    .card-question {
-      margin-bottom: 8px;
-    }
-
-    .card-details {
+    .card-row {
       margin-top: 8px;
-      color: #ccc;
+      margin-bottom: 0;
+
+      * {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
 
       .card-date {
         width: 70%;
@@ -354,15 +356,24 @@ input, .button {
       }
     }
 
-    .answer-form {
-      @include animate("max-height, margin-top", 0.2s);
-      overflow: hidden;
-      margin: 0;
+    .card-extras {
+      .answer-form {
+        margin: 0;
 
-      .answer {
-        display: block;
-        width: 100%;
-        float: left;
+        .answer {
+          display: block;
+          width: 100%;
+        }
+      }
+
+      h3 {
+        font-weight: 600;
+        font-size: 1em;
+      }
+
+      p {
+        margin-top: 8px;
+        font-size: 0.9em;
       }
     }
   }

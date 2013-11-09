@@ -8,7 +8,7 @@
 
 <div id="banner">
   <div class="container">
-    <form name="composeForm" class="compose-form" data-ng-controller="ComposeController" data-ng-submit="submit($event)" data-ng-init="show_errors=false">
+    <form class="compose-form" data-ng-controller="ComposeController" data-ng-submit="submit($event)" data-ng-init="show_errors=false">
       <div class="row compose-form-inputs">
         <div class="span5 offset1">
           <h2>Write a secret message</h2>
@@ -17,7 +17,7 @@
         <div class="span5">
           <h2>Guarded by secret knowledge</h2>
           <p><textarea name="question" class="question" placeholder="Security question" required="required" data-ng-model="question"></textarea></p>
-          <p><textarea name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="answer"></textarea></p>
+          <p><input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="answer" /></p>
         </div>
       </div>
       <div class="row compose-form-submit">
@@ -51,41 +51,67 @@
 <div class="container" id="cards" data-ng-controller="PostsController">
   <div class="row">
     <div class="span4 phone-hidden" data-ng-repeat="column in columns">
-      <div class="card" data-ng-repeat="post in column" data-ng-click="expand(post, $event)" data-ng-class="{true: 'expanded', false: 'contracted'}[post.expanded]">
+      <div class="card" data-ng-repeat="post in column" data-ng-click="expand(post, $event)" data-ng-class="{true: 'expanded', false: 'contracted'}[post.expanded] + ' ' + {true: 'answered', false: 'unanswered'}[post.answered]">
         <div class="card-question">{{post.question}}</div>
-        <div class="card-details clearfix">
+        <div class="card-row muted clearfix">
           <div class="card-date">
             <i class="fa fa-clock-o"></i> {{post.ago}}
           </div>
           <div class="card-options">
             <a data-ng-show="!post.expanded" href="#" data-ng-click="expand(post, $event); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-down"></i></a>
-            <a data-ng-show="post.expanded" href="#" data-ng-click="contract(post, $event);  $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-up"></i></a>
+            <a data-ng-show="post.expanded" href="#" data-ng-click="contract(post, $event); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-up"></i></a>
             &nbsp;
             <a href="/{{post.id}}" data-ng-click="$event.stopPropagation()"><i class="fa fa-link"></i></a>
           </div>
         </div>
-        <form class="answer-form">
-          <input type="text" name="answer" class="answer" placeholder="Answer" required="required" />
-        </form>
+        <div class="card-extras" data-ng-show="post.expanded">
+          <form class="answer-form" data-ng-show="!post.answered" data-ng-submit="submit($event, post)">
+            <div class="card-row">
+              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" />
+            </div>
+            <input type="submit" class="hidden" value="Answer" />
+          </form>
+          <div data-ng-show="post.answered">
+            <hr class="card-row" />
+            <h3 class="card-row">Answer</h3>
+            <div class="card-row"><p>{{post.answer}}</p></div>
+            <hr class="card-row" />
+            <h3 class="card-row">Message</h3>
+            <div class="card-row" data-ng-bind-html-unsafe="post.message"></div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="span12 phone-visible">
-      <div class="card" data-ng-repeat="post in posts" data-ng-click="expand(post, $event)" data-ng-class="{true: 'expanded', false: 'contracted'}[post.expanded]">
-        <div class="card-question">{{post.question}}</div>
-        <div class="card-details clearfix">
+      <div class="card" data-ng-repeat="post in posts" data-ng-click="expand(post, $event)" data-ng-class="{true: 'expanded', false: 'contracted'}[post.expanded] + ' ' + {true: 'answered', false: 'unanswered'}[post.answered]">
+        <div class="card-row">{{post.question}}</div>
+        <div class="card-row muted clearfix">
           <div class="card-date">
             <i class="fa fa-clock-o"></i> {{post.ago}}
           </div>
           <div class="card-options">
             <a data-ng-show="!post.expanded" href="#" data-ng-click="expand(post, $event); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-down"></i></a>
-            <a data-ng-show="post.expanded" href="#" data-ng-click="contract(post, $event);  $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-up"></i></a>
+            <a data-ng-show="post.expanded" href="#" data-ng-click="contract(post, $event); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-caret-up"></i></a>
             &nbsp;
             <a href="/{{post.id}}" data-ng-click="$event.stopPropagation()"><i class="fa fa-link"></i></a>
           </div>
         </div>
-        <form class="answer-form">
-          <input type="text" name="answer" class="answer" placeholder="Answer" required="required" />
-        </form>
+        <div class="card-extras" data-ng-show="post.expanded">
+          <form class="answer-form" data-ng-show="!post.answered" data-ng-submit="submit($event, post)">
+            <div class="card-row">
+              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" />
+            </div>
+            <input type="submit" class="hidden" value="Answer" />
+          </form>
+          <div data-ng-show="post.answered">
+            <hr class="card-row" />
+            <h3 class="card-row">Answer</h3>
+            <div class="card-row"><p>{{post.answer}}</p></div>
+            <hr class="card-row" />
+            <h3 class="card-row">Message</h3>
+            <div class="card-row" data-ng-bind-html-unsafe="post.message"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

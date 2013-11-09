@@ -33,7 +33,7 @@ window.ComposeController = ($scope) ->
       return 'Enter an answer to the security question.'
     if $scope.answer.length > $scope.max_answer
       return 'The answer is too long.'
-      
+
     return null
 
   $scope.submit = (event) ->
@@ -47,6 +47,10 @@ window.ComposeController = ($scope) ->
       }).done (data) ->
         if data.status == "ok"
           window.location = "/" + data.post.id
+
+  $(".compose-form").keydown (e) ->
+    if e.keyCode == 13
+      e.preventDefault()
 
 ComposeController.$inject = ['$scope']
 
@@ -100,5 +104,19 @@ window.PostsController = ($scope) ->
           if post.expanded
             post.expanded = false
       clicking_post = null
+
+  $scope.submit = (event, post) ->
+    answer = $(event.target).parent().find('.answer').val()
+    $.post("/check", {
+      id: post.id,
+      answer: answer,
+    }).done (data) ->
+      $scope.$apply () ->
+        if data.status == "ok"      
+          post.answered = true
+          post.answer = data.answer
+          post.message = data.message
+        else
+          console.log "nope"
 
 PostsController.$inject = ['$scope']
