@@ -121,3 +121,24 @@ window.PostsController = ($scope) ->
           post.message = data.message
 
 PostsController.$inject = ['$scope']
+
+window.PostController = ($scope) ->
+  $scope.post = post
+  $(".answer").focus()
+
+  $scope.button_submit = (event) ->
+    setTimeout (() -> $(event.target).closest("form").submit()), 0
+
+  $scope.submit = (event, post) ->
+    $.post("/check", {
+      id: post.id,
+      answer: post.answer,
+    }).done (data) ->
+      $scope.$apply () ->
+        post.attempted = true
+        if data.status == "ok"      
+          post.answered = true
+          post.answer = data.answer
+          post.message = data.message
+
+PostController.$inject = ['$scope']

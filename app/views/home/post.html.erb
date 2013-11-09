@@ -1,11 +1,31 @@
-<% content_for :title, @post.question + " | Subjunct" %>
+<% content_for :title, @post[:question] + " | Subjunct" %>
 <% content_for :description, "Share your secrets." %>
 
-<div class="container">
+<script>
+  post = <%= @post.to_json.html_safe -%>;
+</script>
+
+<div class="container" data-ng-controller="PostController" id="single-post">
   <div class="row">
     <div class="span8 offset2">
       <div class="container page">
-        <h2><%= @post.question -%></h2>
+        <h2><%= @post[:question] -%></h2>
+        <form class="answer-form" data-ng-show="!post.answered" data-ng-submit="submit($event, post)">
+          <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.answer" />
+          <span class="button" data-ng-click="button_submit($event)">Answer &nbsp;<i class="fa fa-angle-double-right"></i></span>
+          <input type="submit" class="hidden" value="Answer" />
+        </form>
+        <div data-ng-show="post.attempted && !post.answered">
+          <p class="wrong-answer">Sorry, wrong answer.</p>
+        </div>
+        <div data-ng-show="post.answered">
+          <hr />
+          <h3>Answer</h3>
+          <p>{{post.answer}}</p>
+          <hr />
+          <h3>Message</h3>
+          <div data-ng-bind-html-unsafe="post.message"></div>
+        </div>
       </div>
     </div>
   </div>

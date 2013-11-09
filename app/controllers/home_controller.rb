@@ -30,7 +30,18 @@ class HomeController < ApplicationController
   def post
     begin
       id = params[:id].to_i
-      @post = Post.find(id)
+      post = Post.find(id)
+      @post = {
+        :id => post.id,
+        :question => post.question,
+        :date => post.created_at,
+        :ago => time_ago_in_words(post.created_at) + ' ago',
+        :expanded => false,
+        :answered => false,
+        :attempted => false,
+        :answer => '',
+        :message => '',
+      }
     rescue
       return render '404', :status => 404
     end

@@ -112,6 +112,14 @@ body {
     border: 1px solid #e2e2e2;
     margin: 32px 0;
   }
+
+  h2 {
+    font-weight: 600;
+  }
+
+  h3 {
+    font-weight: 600;
+  }
 }
 
 textarea, input[type="text"], input[type="password"] {
@@ -167,24 +175,25 @@ textarea {
   display: inline-block;
   font-weight: 300;
   text-transform: uppercase;
+  vertical-align: top;
 
   @include animate("background-color", 0.2s);
   @include border-radius(3px);
   border: none;
-  background-color: #4b7541;
+  background-color: #68a35b;
   padding: 8px 12px;
-  color: #c6d8c1;
+  color: #f1f9ef;
   cursor: pointer;
 
   &:hover {
-    background-color: #5c904f;
-    color: #ececec;
+    background-color: #528046;
+    color: #d7e5d4;
   }
 
   &.disabled {
     cursor: auto;
-    background-color: #3a4f35;
-    color: #74886f;
+    background-color: #6c8865;
+    color: #c2d5bd;
   }
 }
 
@@ -246,7 +255,6 @@ input, .button {
         color: #666;
         display: inline-block;
         line-height: $input-height;
-        vertical-align: top;
       }
 
       .error-count {
@@ -302,6 +310,21 @@ input, .button {
       &:-ms-input-placeholder {
         color: $placeholder-color;
       }
+    }
+  }
+
+  .button {
+    background-color: #4b7541;
+    color: #c6d8c1;
+
+    &:hover {
+      background-color: #5c904f;
+      color: #ececec;
+    }
+
+    &.disabled {
+      background-color: #3a4f35;
+      color: #74886f;
     }
   }
 }
@@ -377,7 +400,7 @@ input, .button {
       }
 
       .wrong-answer {
-        color: #e78585;
+        color: #e76565;
       }
     }
   }
@@ -385,6 +408,12 @@ input, .button {
   #spinner-container {
     text-align: center;
     font-size: 5em;
+  }
+}
+
+#single-post {
+  .wrong-answer {
+    color: #e76565;
   }
 }
 
