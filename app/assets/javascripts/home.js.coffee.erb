@@ -127,9 +127,9 @@ window.PostController = ($scope) ->
   $(".answer").focus()
 
   $scope.button_submit = (event) ->
-    setTimeout (() -> $(event.target).closest("form").submit()), 0
+    setTimeout (() -> $scope.submit(event)), 0
 
-  $scope.submit = (event, post) ->
+  $scope.submit = (event) ->
     $.post("/check", {
       id: post.id,
       answer: post.answer,
