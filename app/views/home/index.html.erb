@@ -34,7 +34,7 @@
               <span data-ng-class="{ 'error-count': bad_count(question, max_question) }">{{remaining(question, max_question)}}</span> /
               <span data-ng-class="{ 'error-count': bad_count(answer, max_answer) }">{{remaining(answer, max_answer)}}</span>
             </span>
-            <span class="button" ng-class="{ disabled: submitted }" data-ng-mouseover="show_errors=true" data-ng-mouseout="show_errors=false" data-ng-click="submit($event)">Subjunct &nbsp;<i class="fa fa-angle-double-right"></i></span>
+            <span class="button" data-ng-class="{ disabled: submitted }" data-ng-mouseover="show_errors=true" data-ng-mouseout="show_errors=false" data-ng-click="submit($event)">Subjunct &nbsp;<i class="fa fa-angle-double-right"></i></span>
             <input type="submit" class="hidden" value="Subjunct" />
           </p>
         </div>
@@ -80,7 +80,7 @@
             <div class="card-row"><p>{{post.answer}}</p></div>
             <hr class="card-row" />
             <h3 class="card-row">Message</h3>
-            <div class="card-row" data-ng-bind-html-unsafe="post.message"></div>
+            <div class="card-row" data-ng-bind-html="post.message"></div>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@
             <div class="card-row"><p>{{post.answer}}</p></div>
             <hr class="card-row" />
             <h3 class="card-row">Message</h3>
-            <div class="card-row" data-ng-bind-html-unsafe="post.message"></div>
+            <div class="card-row" data-ng-bind-html="post.message"></div>
           </div>
         </div>
       </div>

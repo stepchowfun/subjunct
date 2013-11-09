@@ -54,7 +54,7 @@ window.ComposeController = ($scope) ->
 
 ComposeController.$inject = ['$scope']
 
-window.PostsController = ($scope) ->
+window.PostsController = ($scope, $sce) ->
   $scope.loading = false
   $scope.no_more = !more
   if posts.length > 0
@@ -118,11 +118,11 @@ window.PostsController = ($scope) ->
         if data.status == "ok"      
           post.answered = true
           post.answer = data.answer
-          post.message = data.message
+          post.message = $sce.trustAsHtml(data.message)
 
-PostsController.$inject = ['$scope']
+PostsController.$inject = ['$scope', '$sce']
 
-window.PostController = ($scope) ->
+window.PostController = ($scope, $sce) ->
   $scope.post = post
   $(".answer").focus()
 
@@ -139,6 +139,6 @@ window.PostController = ($scope) ->
         if data.status == "ok"      
           post.answered = true
           post.answer = data.answer
-          post.message = data.message
+          post.message = $sce.trustAsHtml(data.message)
 
-PostController.$inject = ['$scope']
+PostController.$inject = ['$scope', '$sce']
