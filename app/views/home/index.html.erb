@@ -30,9 +30,9 @@
         <div class="span5">
           <p class="right">
             <span class="counter">
+              <span data-ng-class="{ 'error-count': bad_count(message, max_message) }">{{remaining(message, max_message)}}</span> /
               <span data-ng-class="{ 'error-count': bad_count(question, max_question) }">{{remaining(question, max_question)}}</span> /
-              <span data-ng-class="{ 'error-count': bad_count(answer, max_answer) }">{{remaining(answer, max_answer)}}</span> /
-              <span data-ng-class="{ 'error-count': bad_count(message, max_message) }">{{remaining(message, max_message)}}</span>
+              <span data-ng-class="{ 'error-count': bad_count(answer, max_answer) }">{{remaining(answer, max_answer)}}</span>
             </span>
             <span class="button" ng-class="{ disabled: submitted }" data-ng-mouseover="show_errors=true" data-ng-mouseout="show_errors=false" data-ng-click="submit($event)">Subjunct &nbsp;<i class="fa fa-angle-double-right"></i></span>
             <input type="submit" class="hidden" value="Subjunct" />
