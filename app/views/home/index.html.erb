@@ -38,6 +38,11 @@
             <input type="submit" class="hidden" value="Subjunct" />
           </p>
         </div>
+        <div class="span5 phone-visible">
+          <p class="error-message right" data-ng-show="error_message() != null">
+            {{error_message()}}
+          </p>
+        </div>
       </div>
     </form>
   </div>
