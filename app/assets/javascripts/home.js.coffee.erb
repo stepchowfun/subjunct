@@ -49,11 +49,10 @@ ComposeController.$inject = ['$scope']
 
 window.PostsController = ($scope) ->
   $scope.loading = false
+  $scope.no_more = !more
   if posts.length > 0
-    $scope.no_more = false
     $scope.last_timestamp = posts[posts.length - 1].date
   else
-    $scope.no_more = true
     $scope.last_timestamp = null
 
   $scope.posts = posts
@@ -62,7 +61,7 @@ window.PostsController = ($scope) ->
     $scope.columns[i % $scope.columns.length].push($scope.posts[i])
 
   $(window).scroll ->
-    if $(window).scrollTop() + $(window).height() >= $(document).height() - 16
+    if $(window).scrollTop() + $(window).height() >= $(document).height() - 200
       if !$scope.loading and !$scope.no_more
         $scope.$apply () ->
           $scope.loading = true
@@ -70,12 +69,11 @@ window.PostsController = ($scope) ->
             $scope.$apply () ->
               $scope.loading = false
               if data.status == "ok"
-                if data.posts.length == 0
-                  $scope.no_more = true
-                else
-                  for post in data.posts
-                    $scope.columns[($scope.posts.length) % $scope.columns.length].push(post)
-                    $scope.posts.push(post)
+                $scope.no_more = !data.more
+                for post in data.posts
+                  $scope.columns[($scope.posts.length) % $scope.columns.length].push(post)
+                  $scope.posts.push(post)
+                if posts.length > 0
                   $scope.last_timestamp = posts[posts.length - 1].date
 
   clicking_post = null

@@ -9,7 +9,7 @@ class HomeController < ApplicationController
   PAGE_SIZE = 20
 
   def index
-    @posts = Post.order('created_at DESC').limit(PAGE_SIZE).map { |post|
+    @posts = Post.order('created_at DESC').limit(PAGE_SIZE + 1).map { |post|
       {
         :id => post.id,
         :question => post.question,
@@ -18,6 +18,8 @@ class HomeController < ApplicationController
         :expanded => false,
       }
     }
+    @more = @posts.size == PAGE_SIZE + 1
+    @posts = @posts.first(PAGE_SIZE)
   end
 
   def post
@@ -36,7 +38,7 @@ class HomeController < ApplicationController
       return render :json => { :status => 'error', :reason => 'Bad timestamp.' }
     end
 
-    posts = Post.where('created_at < ?', date).order('created_at DESC').limit(PAGE_SIZE).map { |post|
+    posts = Post.where('created_at < ?', date).order('created_at DESC').limit(PAGE_SIZE + 1).map { |post|
       {
         :id => post.id,
         :question => post.question,
@@ -45,9 +47,8 @@ class HomeController < ApplicationController
         :expanded => false,
       }
     }
-    puts posts
 
-    return render :json => { :status => 'ok', :posts => posts }
+    return render :json => { :status => 'ok', :posts => posts.first(PAGE_SIZE), :more => (posts.size == PAGE_SIZE + 1) }
   end
 
   def about
