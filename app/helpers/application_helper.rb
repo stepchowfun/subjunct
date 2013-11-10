@@ -30,7 +30,7 @@ module ApplicationHelper
 
   def htmlify(str, output_paragraphs)
     str = html_escape(str)
-    str = str.gsub(/(http(s?):\/\/\S*)/, '<a href="\1">\1</a>')
+    str = str.gsub(/(http(s?):\/\/\S*)/, '<a href="\1" onclick="event.stopPropagation()">\1</a>')
     if output_paragraphs
       str = str.gsub(/([^\n]+)/, '<p>\1</p>').gsub(/[\r\n]/, '')
     end
