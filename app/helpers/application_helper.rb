@@ -33,7 +33,8 @@ module ApplicationHelper
     if output_images
       str = str.gsub(/(?<!\S)(http(s?):\/\/\S*\.(png|jpg|jpeg|gif|bmp|tif|tiff|svg)(?!\S))/, '<img src="/proxy?path=\1" />')
     end
-    str = str.gsub(/(?<!\S)(http(s?):\/\/\S*)(?!\S)/, '<a href="\1" onclick="event.stopPropagation()">\1</a>')
+    str = str.gsub(/(?<!\S)(http(s?):\/\/\S*)(?![\S])/, '<a href="\1" onclick="event.stopPropagation()">\1</a>')
+    str = str.gsub(/(?<!\S)(\S*\@\S*)(?![.\S])/, '<a href="mailto:\1" onclick="event.stopPropagation()">\1</a>')
     if output_paragraphs
       str = str.gsub(/([^\n]+)/, '<p>\1</p>').gsub(/[\r\n]/, '')
     end
