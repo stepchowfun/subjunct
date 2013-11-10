@@ -12,7 +12,7 @@ class HomeController < ApplicationController
     @posts = Post.order('created_at DESC').limit(PAGE_SIZE + 1).map { |post|
       {
         :id => encode_num(post.id),
-        :question => htmlify(post.question, false),
+        :question => htmlify(post.question, false, false),
         :date => post.created_at,
         :ago => time_ago_in_words(post.created_at) + ' ago',
       }
@@ -27,7 +27,7 @@ class HomeController < ApplicationController
       post = Post.find(id)
       @post = {
         :id => encode_num(post.id),
-        :question => htmlify(post.question, false),
+        :question => htmlify(post.question, false, false),
         :date => post.created_at,
         :ago => time_ago_in_words(post.created_at) + ' ago',
       }
@@ -40,19 +40,19 @@ class HomeController < ApplicationController
     begin
       date = DateTime.parse(params[:date])
     rescue
-      return render :json => { :status => 'error', :reason => 'Bad timestamp.' }
+      return render :json => { :success => false }
     end
 
     posts = Post.where('created_at < ?', date).order('created_at DESC').limit(PAGE_SIZE + 1).map { |post|
       {
         :id => encode_num(post.id),
-        :question => htmlify(post.question, false),
+        :question => htmlify(post.question, false, false),
         :date => post.created_at,
         :ago => time_ago_in_words(post.created_at) + ' ago',
       }
     }
 
-    return render :json => { :status => 'ok', :posts => posts.first(PAGE_SIZE), :more => (posts.size == PAGE_SIZE + 1) }
+    return render :json => { :success => true, :posts => posts.first(PAGE_SIZE), :more => (posts.size == PAGE_SIZE + 1) }
   end
 
   def check
@@ -60,14 +60,14 @@ class HomeController < ApplicationController
       id = decode_num(params[:id]).to_i
       post = Post.find(id)
     rescue
-      return render :json => { :status => 'error', :reason => 'Bad post ID.' }
+      return render :json => { :success => false }
     end
 
     if check_answers(post.answer, params[:answer])
-      message = htmlify(post.message, true)
-      return render :json => { :status => 'ok', :message => message, :answer => htmlify(post.answer, false) }
+      message = htmlify(post.message, true, true)
+      return render :json => { :success => true, :message => message, :answer => htmlify(post.answer, false, false) }
     else
-      return render :json => { :status => 'error', :reason => 'Wrong answer.' }
+      return render :json => { :success => false }
     end
   end
 
@@ -76,19 +76,23 @@ class HomeController < ApplicationController
 
   def new
     if params[:question].size < 1 || params[:question].size > MAX_QUESTION
-      return render :json => { :status => 'error', :reason => 'Invalid question.' }
+      return render :json => { :success => false }
     end
     if params[:answer].size < 1 || params[:answer].size > MAX_ANSWER
-      return render :json => { :status => 'error', :reason => 'Invalid answer.' }
+      return render :json => { :success => false }
     end
     if params[:message].size < 1 || params[:message].size > MAX_MESSAGE
-      return render :json => { :status => 'error', :reason => 'Invalid message.' }
+      return render :json => { :success => false }
     end
 
     post = Post.create :question => params[:question], :answer => params[:answer], :message => params[:message]
-    return render :json => { :status => 'ok', :post => {
-        :id => encode_num(post.id),
-        :question => htmlify(post.question, false),
+    post_id = encode_num(post.id)
+    return render :json => {
+      :success => true,
+      :notice => "Congrats!  Your new subjunct is here: <a href=\"/+" + post_id + "\">subjunct.com/+" + post_id + "</a>",
+      :post => {
+        :id => post_id,
+        :question => htmlify(post.question, false, false),
         :date => post.created_at,
         :ago => time_ago_in_words(post.created_at) + ' ago',
       }

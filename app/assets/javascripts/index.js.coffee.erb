@@ -1,12 +1,19 @@
 <% environment.context_class.instance_eval { include ApplicationHelper } %>
 
-window.ComposeController = ($scope) ->
+window.columns = [[], [], []]
+
+organize_columns = () ->
+  window.columns.splice(0, window.columns.length, [], [], [])
+  for i in [0...posts.length]
+    window.columns[i % window.columns.length].push(posts[i])
+
+window.ComposeController = ($scope, $sce) ->
   # character limits
   $scope.max_question = <%= MAX_QUESTION %>
   $scope.max_answer = <%= MAX_ANSWER %>
   $scope.max_message = <%= MAX_MESSAGE %>
 
-  $scope.submitted = false
+  $scope.form_submitted = false
 
   $scope.remaining = (text, max_count) ->
     if !text?
@@ -37,22 +44,41 @@ window.ComposeController = ($scope) ->
     return null
 
   $scope.submit = (event) ->
-    if $scope.error_message() == null and !$scope.submitted
-      $scope.submitted = true
+    if $scope.error_message() == null and !$scope.form_submitted
+      $scope.form_submitted = true
       $(event.target).parent().find('.submit').prop('disabled', true)
-      $.post("/new", {
-        question: $scope.question,
-        answer: $scope.answer,
-        message: $scope.message,
-      }).done (data) ->
-        if data.status == "ok"
-          window.location = "/+" + data.post.id
 
-  $(".compose-form .question").keydown (e) ->
+      ajax {
+        url: '/new',
+        type: 'post',
+        data: {
+          question: $scope.question,
+          answer: $scope.answer,
+          message: $scope.message,
+        },
+        success: ((data) ->
+          $scope.$apply () ->
+            $scope.form_submitted = false
+            $scope.message = ''
+            $scope.question = ''
+            $scope.answer = ''
+            data.post.question = $sce.trustAsHtml(data.post.question)
+            data.post.expanded = false
+            data.post.answered = false
+            data.post.attempted = false
+            data.post.attempted_answer = ''
+            data.post.message = ''
+            data.post.form_submitted = false
+            posts.unshift(data.post)
+            organize_columns()
+        )
+      }
+
+  $('.compose-form .question').keydown (e) ->
     if e.keyCode == 13
       e.preventDefault()
 
-ComposeController.$inject = ['$scope']
+ComposeController.$inject = ['$scope', '$sce']
 
 window.PostsController = ($scope, $sce) ->
   $scope.loading = false
@@ -63,6 +89,7 @@ window.PostsController = ($scope, $sce) ->
     $scope.last_timestamp = null
 
   $scope.posts = posts
+  $scope.columns = columns
   for post in $scope.posts
     post.question = $sce.trustAsHtml(post.question)
     post.expanded = false
@@ -70,26 +97,41 @@ window.PostsController = ($scope, $sce) ->
     post.attempted = false
     post.attempted_answer = ''
     post.message = ''
-  
-  $scope.columns = [[], [], []]
-  for i in [0...$scope.posts.length]
-    $scope.columns[i % $scope.columns.length].push($scope.posts[i])
+    post.form_submitted = false
+  organize_columns()
 
-  $(window).scroll ->
+  load_more = () ->
     if $(window).scrollTop() + $(window).height() >= $(document).height() - 200
       if !$scope.loading and !$scope.no_more
         $scope.$apply () ->
           $scope.loading = true
-          $.ajax({url: "/batch", data: { date: $scope.last_timestamp } }).success((data) ->
-            $scope.$apply () ->
-              if data.status == "ok"
+          ajax {
+            url: '/batch',
+            data: { date: $scope.last_timestamp },
+            success: ((data) ->
+              $scope.$apply () ->
                 $scope.no_more = !data.more
                 for post in data.posts
-                  $scope.columns[($scope.posts.length) % $scope.columns.length].push(post)
+                  post.question = $sce.trustAsHtml(post.question)
+                  post.expanded = false
+                  post.answered = false
+                  post.attempted = false
+                  post.attempted_answer = ''
+                  post.message = ''
+                  post.form_submitted = false
                   $scope.posts.push(post)
+                organize_columns()
                 if posts.length > 0
                   $scope.last_timestamp = posts[posts.length - 1].date
-          ).complete -> ($scope.$apply (() -> $scope.loading = false))
+            ),
+            complete: (() ->
+              $scope.$apply(() -> $scope.loading = false)
+              load_more()
+            ),
+          }
+
+  $(window).scroll(load_more)
+  setTimeout(load_more, 0)
 
   clicking_post = null
 
@@ -117,12 +159,23 @@ window.PostsController = ($scope, $sce) ->
       clicking_post = null
 
   $scope.submit = (event, post) ->
-    $.post("/check/+" + post.id, { answer: post.attempted_answer }).done (data) ->
-      $scope.$apply () ->
-        post.attempted = true
-        if data.status == "ok"      
-          post.answered = true
-          post.answer = $sce.trustAsHtml(data.answer)
-          post.message = $sce.trustAsHtml(data.message)
+    if !post.form_submitted
+      post.form_submitted = true
+      ajax {
+        url: '/check/+' + post.id,
+        type: 'post',
+        data: { answer: post.attempted_answer },
+        success: ((data) ->
+          $scope.$apply () ->
+            post.answered = true
+            post.answer = $sce.trustAsHtml(data.answer)
+            post.message = $sce.trustAsHtml(data.message)
+        ),
+        complete: (() ->
+          $scope.$apply () ->
+            post.form_submitted = false
+            post.attempted = true
+        ),
+      }
 
 PostsController.$inject = ['$scope', '$sce']

@@ -30,6 +30,13 @@
         </div>
       </div>
     </div>
+    <div id="notice-vessel" data-ng-controller="NoticeController">
+      <div class="container">
+        <div class="notice" data-ng-class="{ hidden: !notice.open }" data-ng-repeat="notice in notices">
+          <span data-ng-bind-html="notice.text"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-times" data-ng-click="notice.open=false"></i></a>
+        </div>
+      </div>
+    </div>
     <div id="content-vessel">
       <%= yield %>
     </div>

@@ -6,19 +6,31 @@ window.PostController = ($scope, $sce) ->
   $scope.post.attempted = false
   $scope.post.attempted_answer = ''
   $scope.post.message = ''
+  $scope.post.form_submitted = false
 
-  $(".answer").focus()
+  $('.answer').focus()
 
   $scope.button_submit = (event) ->
     setTimeout (() -> $scope.submit(event)), 0
 
   $scope.submit = (event) ->
-    $.post("/check/+" + post.id, { answer: post.attempted_answer }).done (data) ->
-      $scope.$apply () ->
-        post.attempted = true
-        if data.status == "ok"      
-          post.answered = true
-          post.answer = $sce.trustAsHtml(data.answer)
-          post.message = $sce.trustAsHtml(data.message)
+    if !$scope.post.form_submitted
+      $scope.post.form_submitted = true
+      ajax {
+        url: '/check/+' + post.id,
+        type: 'post',
+        data: { answer: post.attempted_answer },
+        success: ((data) ->
+          $scope.$apply ->
+            post.answered = true
+            post.answer = $sce.trustAsHtml(data.answer)
+            post.message = $sce.trustAsHtml(data.message)
+        ),
+        complete: (() ->
+          $scope.$apply () ->
+            $scope.post.form_submitted = false
+            post.attempted = true
+        ),
+      }
 
 PostController.$inject = ['$scope', '$sce']

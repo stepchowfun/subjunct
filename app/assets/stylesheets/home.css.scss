@@ -122,6 +122,12 @@ textarea, input[type="text"], input[type="password"] {
       color: $placeholder-color;
     }
   }
+
+  &:disabled {
+    @include box-shadow(0px, 2px, 3px, 0px, #ddd, true);
+    background-color: #eee;
+    color: #aaa;
+  }
 }
 
 textarea {

@@ -12,12 +12,12 @@
       <div class="row compose-form-inputs">
         <div class="span5 offset1">
           <h2>Write a secret message</h2>
-          <p><textarea name="message" class="message" placeholder="Secret message" required="required" data-ng-model="message"></textarea></p>
+          <p><textarea name="message" class="message" placeholder="Secret message" required="required" data-ng-model="message" data-ng-disabled="form_submitted"></textarea></p>
         </div>
         <div class="span5">
           <h2>Guarded by secret knowledge</h2>
-          <p><textarea name="question" class="question" placeholder="Security question" required="required" data-ng-model="question"></textarea></p>
-          <p><input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="answer" /></p>
+          <p><textarea name="question" class="question" placeholder="Security question" required="required" data-ng-model="question" data-ng-disabled="form_submitted"></textarea></p>
+          <p><input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="answer" data-ng-disabled="form_submitted" /></p>
         </div>
       </div>
       <div class="row compose-form-submit">
@@ -34,7 +34,7 @@
               <span data-ng-class="{ 'error-count': bad_count(question, max_question) }">{{remaining(question, max_question)}}</span> /
               <span data-ng-class="{ 'error-count': bad_count(answer, max_answer) }">{{remaining(answer, max_answer)}}</span>
             </span>
-            <span class="button" data-ng-class="{ disabled: submitted }" data-ng-mouseover="show_errors=true" data-ng-mouseout="show_errors=false" data-ng-click="submit($event)">Subjunct &nbsp;<i class="fa fa-angle-double-right"></i></span>
+            <span class="button" data-ng-class="{ disabled: form_submitted }" data-ng-mouseover="show_errors=true" data-ng-mouseout="show_errors=false" data-ng-click="submit($event)">Subjunct &nbsp;<i class="fa fa-angle-double-right"></i></span>
             <input type="submit" class="hidden" value="Subjunct" />
           </p>
         </div>
@@ -67,7 +67,7 @@
         <div class="card-extras" data-ng-show="post.expanded">
           <form class="answer-form" data-ng-show="!post.answered" data-ng-submit="submit($event, post)">
             <div class="card-row">
-              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.attempted_answer" />
+              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.attempted_answer" data-ng-disabled="post.form_submitted" />
             </div>
             <input type="submit" class="hidden" value="Answer" />
           </form>
@@ -102,7 +102,7 @@
         <div class="card-extras" data-ng-show="post.expanded">
           <form class="answer-form" data-ng-show="!post.answered" data-ng-submit="submit($event, post)">
             <div class="card-row">
-              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.attempted_answer" />
+              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.attempted_answer" data-ng-disabled="post.form_submitted" />
             </div>
             <input type="submit" class="hidden" value="Answer" />
           </form>

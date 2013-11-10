@@ -71,6 +71,21 @@ body {
     }
   }
 
+  #notice-vessel {
+    background-color: #eee;
+
+    .notice {
+      padding: 12px 0;
+      text-align: center;
+      color: #333;
+      border-bottom: 1px solid #ccc;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
   #content-vessel {
     padding-bottom: $footer-height;
   }
