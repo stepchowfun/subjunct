@@ -1,4 +1,16 @@
+@import 'constants';
+
 .post {
+  @media (max-width: 767px) {
+    .answer-form {
+      margin-bottom: 0;
+    }
+
+    .answer, .button {
+      margin-bottom: $paragraph-margin;
+    }
+  }
+
   img {
     display: inline-block;
     max-width: 100%;
