@@ -31,9 +31,9 @@ module ApplicationHelper
   def htmlify(str, output_paragraphs, output_images)
     str = html_escape(str)
     if output_images
-      str = str.gsub(/(http(s?):\/\/\S*\.(png|jpg|jpeg|gif|bmp|tif|tiff|svg))/, '<img src="\1" />')
+      str = str.gsub(/(?<!\S)(http(s?):\/\/\S*\.(png|jpg|jpeg|gif|bmp|tif|tiff|svg)(?!\s))/, '<img src="/proxy?path=\1" />')
     end
-    str = str.gsub(/(?<!\")(http(s?):\/\/\S*)/, '<a href="\1" onclick="event.stopPropagation()">\1</a>')
+    str = str.gsub(/(?<!\S)(http(s?):\/\/\S*)/, '<a href="\1" onclick="event.stopPropagation()">\1</a>')
     if output_paragraphs
       str = str.gsub(/([^\n]+)/, '<p>\1</p>').gsub(/[\r\n]/, '')
     end

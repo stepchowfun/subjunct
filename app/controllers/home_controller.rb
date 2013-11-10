@@ -1,5 +1,7 @@
 include ActionView::Helpers::DateHelper
 include ApplicationHelper
+require 'open-uri'
+require 'timeout'
 
 class HomeController < ApplicationController
   # ensure that HTTPS is used
@@ -97,6 +99,13 @@ class HomeController < ApplicationController
         :ago => time_ago_in_words(post.created_at) + ' ago',
       }
     }
+  end
+
+  def proxy
+    Timeout::timeout(2) {
+      return send_data open(params[:path]).read, :type => 'image/' + params[:path].last(3), :disposition => 'inline'
+    }
+    return render :text => 'timeout', :status => '500'
   end
 
 private

@@ -4,6 +4,7 @@ Subjunct::Application.routes.draw do
   post '/new', to: 'home#new'
   get '/batch', to: 'home#batch'
   post '/check/+:id', to: 'home#check'
+  get '/proxy', to: 'home#proxy'
   get '/+:id', to: 'home#post'
 
   # The priority is based upon order of creation: first created -> highest priority.
