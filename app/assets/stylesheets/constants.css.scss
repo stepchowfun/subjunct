@@ -1,0 +1,40 @@
+$anchor-color-hover: #ba2b18;
+$input-height: 40px;
+$paragraph-margin: 20px;
+
+@mixin box-shadow($x, $y, $blur, $spread, $color, $inset) {
+  @if $inset {
+    -webkit-box-shadow: $x $y $blur $spread $color inset;
+    -moz-box-shadow:    $x $y $blur $spread $color inset;
+    -ms-box-shadow:     $x $y $blur $spread $color inset;
+    -o-box-shadow:      $x $y $blur $spread $color inset;
+    box-shadow:         $x $y $blur $spread $color inset;
+  } @else {
+    -webkit-box-shadow: $x $y $blur $spread $color;
+    -moz-box-shadow:    $x $y $blur $spread $color;
+    -ms-box-shadow:     $x $y $blur $spread $color;
+    -o-box-shadow:      $x $y $blur $spread $color;
+    box-shadow:         $x $y $blur $spread $color;
+  }
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius:    $radius;
+  -ms-border-radius:     $radius;
+  -o-border-radius:      $radius;
+  border-radius:         $radius;
+}
+
+@mixin animate($properties, $duration) {
+  -webkit-transition-property: $properties;
+  -moz-transition-property:    $properties;
+  -ms-transition-property:     $properties;
+  -o-transition-property:      $properties;
+  transition-property:         $properties;
+  -webkit-transition-duration: $duration;
+  -moz-transition-duration:    $duration;
+  -ms-transition-duration:     $duration;
+  -o-transition-duration:      $duration;
+  transition-duration:         $duration;
+}

@@ -1,0 +1,96 @@
+@import 'constants';
+
+$footer-height: 64px;
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  position: relative;
+
+  #header-vessel {
+    background-color: #fff;
+
+    #header {
+      line-height: 70px;
+
+      #title {
+        float: left;
+
+        @media (max-width: 767px) {
+          text-align: center;
+          line-height: 48px;
+          float: none;
+          padding-top: 12px;
+        }
+
+        font-weight: 600;
+        margin: 0;
+        color: #333;
+
+        a {
+          display: inline-block;
+          font-weight: inherit;
+
+          padding: 0 0 0 1.3em;
+          background-position: left center;
+          background-size: 1em 1.156em;
+          background-repeat: no-repeat;
+          background-origin: padding-box;
+          background-image: image-url("logo.png");
+
+          &:hover {
+            color: $anchor-color-hover;
+          }
+        }
+      }
+
+      #nav-links {
+        text-align: right;
+
+        @media (max-width: 767px) {
+          text-align: center;
+          line-height: 48px;
+        }
+
+        a {
+          font-weight: 400;
+          font-size: 0.8em;
+          text-transform: uppercase;
+          display: inline-block;
+          padding: 0 16px;
+        }
+      }
+    }
+  }
+
+  #content-vessel {
+    padding-bottom: $footer-height;
+  }
+
+  #footer-vessel {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: $footer-height;
+    background: #222 image-url("diagmonds.png") repeat;
+    overflow: hidden;
+
+    #footer {
+      text-align: center;
+      color: #666;
+
+      p {
+        margin: 0;
+        line-height: $footer-height;
+      }
+    }
+  }
+}

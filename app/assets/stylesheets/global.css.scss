@@ -1,0 +1,159 @@
+@import 'constants';
+
+.hidden {
+  display: none;
+}
+
+.muted {
+  color: #ccc;
+}
+
+.right {
+  text-align: right;
+}
+
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  background-color: #eee;
+  color: #666;
+
+  *:focus, *:active {
+    outline: 0;
+  }
+
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    box-sizing:         border-box;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+    font-weight: 600;
+    @include animate(color, 0.2s);
+
+    &:hover {
+      color: $anchor-color-hover;
+    }
+  }
+
+  p, form {
+    margin: $paragraph-margin 0;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #eee;
+  }
+
+  .page {
+    @include box-shadow(0px, 2px, 4px, 0px, #ddd, false);
+    @include border-radius(3px);
+    background-color: #fff;
+    padding: 0 32px;
+    border: 1px solid #e2e2e2;
+    margin: 32px 0;
+  }
+
+  h2 {
+    font-weight: 600;
+  }
+
+  h3 {
+    font-weight: 600;
+  }
+}
+
+textarea, input[type="text"], input[type="password"] {
+  display: inline-block;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  padding: 8px 12px;
+  color: #999;
+  @include animate("background-color, color, box-shadow", 0.5s);
+  @include border-radius(3px);
+  @include box-shadow(0px, 2px, 3px, 0px, #eee, true);
+
+  $placeholder-color: #ccc;
+  &::-webkit-input-placeholder {
+    color: $placeholder-color;
+  }
+  &:-moz-placeholder {
+    color: $placeholder-color;
+  }
+  &::-moz-placeholder {
+    color: $placeholder-color;
+  }
+  &:-ms-input-placeholder {
+    color: $placeholder-color;
+  }
+
+  &:focus {
+    color: #666;
+    background-color: #fff6cd;
+    @include box-shadow(0px, 2px, 3px, 0px, #e7ddae, true);
+
+    $placeholder-color: #c2bda8;
+    &::-webkit-input-placeholder {
+      color: $placeholder-color;
+    }
+    &:-moz-placeholder {
+      color: $placeholder-color;
+    }
+    &::-moz-placeholder {
+      color: $placeholder-color;
+    }
+    &:-ms-input-placeholder {
+      color: $placeholder-color;
+    }
+  }
+}
+
+textarea {
+  resize: none;
+}
+
+.button {
+  display: inline-block;
+  font-weight: 300;
+  text-transform: uppercase;
+  vertical-align: top;
+
+  @include animate("background-color", 0.2s);
+  @include border-radius(3px);
+  border: none;
+  background-color: #68a35b;
+  padding: 8px 12px;
+  color: #f1f9ef;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #528046;
+    color: #d7e5d4;
+  }
+
+  &.disabled {
+    cursor: auto;
+    background-color: #6c8865;
+    color: #c2d5bd;
+  }
+}
+
+input, .button {
+  height: $input-height;
+}

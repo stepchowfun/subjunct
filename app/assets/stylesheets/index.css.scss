@@ -1,0 +1,215 @@
+@import 'constants';
+
+#banner {
+  background: #222 image-url("diagmonds.png") repeat;
+  padding: $paragraph-margin 0;
+  color: #ccc;
+
+  h2 {
+    font-family: "Oswald", sans-serif;
+    font-weight: 300;
+    font-size: 2em;
+    text-transform: uppercase;
+    margin: 0 0 $paragraph-margin 0;
+    text-align: center;
+
+    @media (min-width: 768px) and (max-width: 1150px) {
+      font-size: 1.4em;
+    }
+  }
+
+  .compose-form {
+    margin: 0;
+
+    .compose-form-inputs {
+      div > p {
+        margin-top: 0;
+      }
+
+      .message {
+        width: 100%;
+        height: 128px + $paragraph-margin;
+      }
+
+      .question {
+        width: 100%;
+        height: 128px - $input-height;
+      }
+
+      .answer {
+        width: 100%;
+        height: $input-height;
+      }
+    }
+
+    .compose-form-submit {
+      & > div > * {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      .counter {
+        color: #666;
+        display: inline-block;
+        line-height: $input-height;
+      }
+
+      .error-count {
+        color: #a00;
+      }
+
+      .error-message {
+        color: #666;
+        line-height: $input-height;
+      }
+
+      .button {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  textarea, input[type="text"], input[type="password"] {
+    @include box-shadow(0px, 2px, 3px, 0px, #292929, true);
+    border: 1px solid #333;
+    background-color: #333;
+    color: #999;
+
+    $placeholder-color: #666;
+    &::-webkit-input-placeholder {
+      color: $placeholder-color;
+    }
+    &:-moz-placeholder {
+      color: $placeholder-color;
+    }
+    &::-moz-placeholder {
+      color: $placeholder-color;
+    }
+    &:-ms-input-placeholder {
+      color: $placeholder-color;
+    }
+
+    &:focus {
+      color: #aaa;
+      background-color: #444;
+      @include box-shadow(0px, 2px, 3px, 0px, #333, true);
+
+      $placeholder-color: #707070;
+      &::-webkit-input-placeholder {
+        color: $placeholder-color;
+      }
+      &:-moz-placeholder {
+        color: $placeholder-color;
+      }
+      &::-moz-placeholder {
+        color: $placeholder-color;
+      }
+      &:-ms-input-placeholder {
+        color: $placeholder-color;
+      }
+    }
+  }
+
+  .button {
+    background-color: #4b7541;
+    color: #c6d8c1;
+
+    &:hover {
+      background-color: #5c904f;
+      color: #ececec;
+    }
+
+    &.disabled {
+      background-color: #3a4f35;
+      color: #74886f;
+    }
+  }
+}
+
+#cards {
+  padding-top: $paragraph-margin;
+  padding-bottom: $paragraph-margin;
+
+  .card {
+    @include box-shadow(0px, 2px, 4px, 0px, #ddd, false);
+    @include border-radius(3px);
+    @include animate("box-shadow", 0.2s);
+    background-color: #fff;
+    padding: 16px;
+    border: 1px solid #e2e2e2;
+    overflow: hidden;
+    margin: $paragraph-margin 0;
+
+    &.expanded {
+    }
+
+    &.contracted {
+      cursor: pointer;
+
+      &:hover {
+        @include box-shadow(0px, 5px, 10px, 0px, #ccc, false);
+      }
+    }
+
+    > .card-row:first-child {
+      margin-top: 0;
+    }
+
+    .card-row {
+      margin-top: 8px;
+      margin-bottom: 0;
+
+      * {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      .card-date {
+        width: 70%;
+        float: left;
+      }
+
+      .card-options {
+        width: 30%;
+        float: right;
+        text-align: right;
+      }
+    }
+
+    .card-extras {
+      .answer-form {
+        margin: 0;
+
+        .answer {
+          display: block;
+          width: 100%;
+        }
+      }
+
+      h3 {
+        font-weight: 600;
+        font-size: 1em;
+      }
+
+      p {
+        margin-top: 8px;
+        font-size: 0.9em;
+      }
+
+      .wrong-answer {
+        color: #e76565;
+      }
+    }
+  }
+
+  #spinner-container {
+    text-align: center;
+    font-size: 5em;
+  }
+}
+
+#single-post {
+  .wrong-answer {
+    color: #e76565;
+  }
+}
