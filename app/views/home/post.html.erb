@@ -9,9 +9,9 @@
   <div class="row">
     <div class="span8 offset2">
       <div class="container page">
-        <h2><%= @post[:question] -%></h2>
+        <h2><%= @post[:question].html_safe -%></h2>
         <form class="answer-form" data-ng-show="!post.answered" data-ng-submit="submit($event, post)">
-          <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.answer" />
+          <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.attempted_answer" />
           <span class="button" data-ng-click="button_submit($event)">Answer &nbsp;<i class="fa fa-angle-double-right"></i></span>
           <input type="submit" class="hidden" value="Answer" />
         </form>
@@ -21,7 +21,7 @@
         <div data-ng-show="post.answered">
           <hr />
           <h3>Answer</h3>
-          <p>{{post.answer}}</p>
+          <p data-ng-bind-html="post.answer"></p>
           <hr />
           <h3>Message</h3>
           <div data-ng-bind-html="post.message"></div>

@@ -52,7 +52,7 @@
   <div class="row">
     <div class="span4 phone-hidden" data-ng-repeat="column in columns">
       <div class="card" data-ng-repeat="post in column" data-ng-click="expand(post, $event)" data-ng-class="{true: 'expanded', false: 'contracted'}[post.expanded] + ' ' + {true: 'answered', false: 'unanswered'}[post.answered]">
-        <div class="card-question">{{post.question}}</div>
+        <div class="card-question" data-ng-bind-html="post.question"></div>
         <div class="card-row muted clearfix">
           <div class="card-date">
             <i class="fa fa-clock-o"></i> {{post.ago}}
@@ -67,7 +67,7 @@
         <div class="card-extras" data-ng-show="post.expanded">
           <form class="answer-form" data-ng-show="!post.answered" data-ng-submit="submit($event, post)">
             <div class="card-row">
-              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.answer" />
+              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.attempted_answer" />
             </div>
             <input type="submit" class="hidden" value="Answer" />
           </form>
@@ -77,7 +77,7 @@
           <div data-ng-show="post.answered">
             <hr class="card-row" />
             <h3 class="card-row">Answer</h3>
-            <div class="card-row"><p>{{post.answer}}</p></div>
+            <p class="card-row" data-ng-bind-html="post.answer"></p>
             <hr class="card-row" />
             <h3 class="card-row">Message</h3>
             <div class="card-row" data-ng-bind-html="post.message"></div>
@@ -87,7 +87,7 @@
     </div>
     <div class="span12 phone-visible">
       <div class="card" data-ng-repeat="post in posts" data-ng-click="expand(post, $event)" data-ng-class="{true: 'expanded', false: 'contracted'}[post.expanded] + ' ' + {true: 'answered', false: 'unanswered'}[post.answered]">
-        <div class="card-row">{{post.question}}</div>
+        <div class="card-row" data-ng-bind-html="post.question"></div>
         <div class="card-row muted clearfix">
           <div class="card-date">
             <i class="fa fa-clock-o"></i> {{post.ago}}
@@ -102,7 +102,7 @@
         <div class="card-extras" data-ng-show="post.expanded">
           <form class="answer-form" data-ng-show="!post.answered" data-ng-submit="submit($event, post)">
             <div class="card-row">
-              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.answer" />
+              <input type="text" name="answer" class="answer" placeholder="Answer" required="required" data-ng-model="post.attempted_answer" />
             </div>
             <input type="submit" class="hidden" value="Answer" />
           </form>
@@ -112,7 +112,7 @@
           <div data-ng-show="post.answered">
             <hr class="card-row" />
             <h3 class="card-row">Answer</h3>
-            <div class="card-row"><p>{{post.answer}}</p></div>
+            <p class="card-row" data-ng-bind-html="post.answer"></p>
             <hr class="card-row" />
             <h3 class="card-row">Message</h3>
             <div class="card-row" data-ng-bind-html="post.message"></div>

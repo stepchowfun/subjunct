@@ -1,3 +1,5 @@
+include ERB::Util
+
 module ApplicationHelper
   MAX_QUESTION = 150
   MAX_ANSWER = 50
@@ -24,6 +26,15 @@ module ApplicationHelper
       str = str[1..-1]
     end
     return num
+  end
+
+  def htmlify(str, output_paragraphs)
+    str = html_escape(str)
+    str = str.gsub(/(http(s?):\/\/\S*)/, '<a href="\1">\1</a>')
+    if output_paragraphs
+      str = str.gsub(/([^\n]+)/, '<p>\1</p>').gsub(/[\r\n]/, '')
+    end
+    return str
   end
 
 end

@@ -63,6 +63,14 @@ window.PostsController = ($scope, $sce) ->
     $scope.last_timestamp = null
 
   $scope.posts = posts
+  for post in $scope.posts
+    post.question = $sce.trustAsHtml(post.question)
+    post.expanded = false
+    post.answered = false
+    post.attempted = false
+    post.attempted_answer = ''
+    post.message = ''
+  
   $scope.columns = [[], [], []]
   for i in [0...$scope.posts.length]
     $scope.columns[i % $scope.columns.length].push($scope.posts[i])
@@ -105,34 +113,41 @@ window.PostsController = ($scope, $sce) ->
             post.expanded = false
             if !post.answered
               post.attempted = false
-              post.answer = ''
+              post.attempted_answer = ''
       clicking_post = null
 
   $scope.submit = (event, post) ->
-    $.post("/check/+" + post.id, { answer: post.answer }).done (data) ->
+    $.post("/check/+" + post.id, { answer: post.attempted_answer }).done (data) ->
       $scope.$apply () ->
         post.attempted = true
         if data.status == "ok"      
           post.answered = true
-          post.answer = data.answer
+          post.answer = $sce.trustAsHtml(data.answer)
           post.message = $sce.trustAsHtml(data.message)
 
 PostsController.$inject = ['$scope', '$sce']
 
 window.PostController = ($scope, $sce) ->
   $scope.post = post
+  $scope.post.question = $sce.trustAsHtml($scope.post.question)
+  $scope.post.expanded = false
+  $scope.post.answered = false
+  $scope.post.attempted = false
+  $scope.post.attempted_answer = ''
+  $scope.post.message = ''
+
   $(".answer").focus()
 
   $scope.button_submit = (event) ->
     setTimeout (() -> $scope.submit(event)), 0
 
   $scope.submit = (event) ->
-    $.post("/check/+" + post.id, { answer: post.answer }).done (data) ->
+    $.post("/check/+" + post.id, { answer: post.attempted_answer }).done (data) ->
       $scope.$apply () ->
         post.attempted = true
         if data.status == "ok"      
           post.answered = true
-          post.answer = data.answer
+          post.answer = $sce.trustAsHtml(data.answer)
           post.message = $sce.trustAsHtml(data.message)
 
 PostController.$inject = ['$scope', '$sce']

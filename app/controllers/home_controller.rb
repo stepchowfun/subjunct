@@ -1,6 +1,5 @@
 include ActionView::Helpers::DateHelper
 include ApplicationHelper
-require 'rdiscount'
 
 class HomeController < ApplicationController
   # ensure that HTTPS is used
@@ -13,14 +12,9 @@ class HomeController < ApplicationController
     @posts = Post.order('created_at DESC').limit(PAGE_SIZE + 1).map { |post|
       {
         :id => encode_num(post.id),
-        :question => post.question,
+        :question => htmlify(post.question, false),
         :date => post.created_at,
         :ago => time_ago_in_words(post.created_at) + ' ago',
-        :expanded => false,
-        :answered => false,
-        :attempted => false,
-        :answer => '',
-        :message => '',
       }
     }
     @more = @posts.size == PAGE_SIZE + 1
@@ -33,14 +27,9 @@ class HomeController < ApplicationController
       post = Post.find(id)
       @post = {
         :id => encode_num(post.id),
-        :question => post.question,
+        :question => htmlify(post.question, false),
         :date => post.created_at,
         :ago => time_ago_in_words(post.created_at) + ' ago',
-        :expanded => false,
-        :answered => false,
-        :attempted => false,
-        :answer => '',
-        :message => '',
       }
     rescue
       return render '404', :status => 404
@@ -57,14 +46,9 @@ class HomeController < ApplicationController
     posts = Post.where('created_at < ?', date).order('created_at DESC').limit(PAGE_SIZE + 1).map { |post|
       {
         :id => encode_num(post.id),
-        :question => post.question,
+        :question => htmlify(post.question, false),
         :date => post.created_at,
         :ago => time_ago_in_words(post.created_at) + ' ago',
-        :expanded => false,
-        :answered => false,
-        :attempted => false,
-        :answer => '',
-        :message => '',
       }
     }
 
@@ -80,8 +64,8 @@ class HomeController < ApplicationController
     end
 
     if check_answers(post.answer, params[:answer])
-      message = RDiscount.new(post.message).to_html
-      return render :json => { :status => 'ok', :message => message, :answer => post.answer }
+      message = htmlify(post.message, true)
+      return render :json => { :status => 'ok', :message => message, :answer => htmlify(post.answer, false) }
     else
       return render :json => { :status => 'error', :reason => 'Wrong answer.' }
     end
@@ -104,14 +88,9 @@ class HomeController < ApplicationController
     post = Post.create :question => params[:question], :answer => params[:answer], :message => params[:message]
     return render :json => { :status => 'ok', :post => {
         :id => encode_num(post.id),
-        :question => post.question,
+        :question => htmlify(post.question, false),
         :date => post.created_at,
         :ago => time_ago_in_words(post.created_at) + ' ago',
-        :expanded => false,
-        :answered => false,
-        :attempted => false,
-        :answer => '',
-        :message => '',
       }
     }
   end

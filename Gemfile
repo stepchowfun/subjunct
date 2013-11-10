@@ -58,6 +58,3 @@ ruby '2.0.0'
 
 # Font Awesome
 gem 'font-awesome-sass'
-
-# markdown
-gem 'rdiscount'
