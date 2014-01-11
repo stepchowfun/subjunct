@@ -1,6 +1,7 @@
 include ActionView::Helpers::DateHelper
 include ApplicationHelper
 require 'open-uri'
+require 'uri'
 require 'timeout'
 
 class HomeController < ApplicationController
@@ -103,7 +104,7 @@ class HomeController < ApplicationController
 
   def proxy
     Timeout::timeout(2) {
-      return send_data open(params[:path]).read, :type => 'image/' + params[:path].last(3), :disposition => 'inline'
+      return send_data open(URI.escape(params[:path])).read, :type => 'image/' + params[:path].last(3), :disposition => 'inline'
     }
     return render :text => 'timeout', :status => '500'
   end
