@@ -103,7 +103,7 @@ class HomeController < ApplicationController
   end
 
   def proxy
-    Timeout::timeout(2) {
+    Timeout::timeout(5) {
       return send_data open(URI.escape(params[:path])).read, :type => 'image/' + params[:path].last(3), :disposition => 'inline'
     }
     return render :text => 'timeout', :status => '500'
