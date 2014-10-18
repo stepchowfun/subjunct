@@ -4,8 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 group :production do
-  # Use mysql2 as the database for Active Record
-  gem 'mysql2'
+  gem 'pg'
 end
 group :development, :test do
   # Use sqlite3 as the database for Active Record
@@ -53,8 +52,8 @@ gem 'unicorn'
 # needed for Heroku
 gem 'rails_12factor', group: :production
 
-# use Ruby 2.0.0
-ruby '2.0.0'
+# use Ruby 2.1.2
+ruby '2.1.2'
 
 # Font Awesome
 gem 'font-awesome-sass'
