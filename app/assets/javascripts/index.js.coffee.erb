@@ -7,7 +7,9 @@ organize_columns = () ->
   for i in [0...posts.length]
     window.columns[i % window.columns.length].push(posts[i])
 
-window.ComposeController = ($scope, $sce) ->
+index = angular.module('index', ['ajax'])
+
+index.controller('ComposeController', ['$scope', '$sce', 'ajax', ($scope, $sce, ajax) ->
   # character limits
   $scope.max_question = <%= MAX_QUESTION %>
   $scope.max_answer = <%= MAX_ANSWER %>
@@ -77,10 +79,9 @@ window.ComposeController = ($scope, $sce) ->
   $('.compose-form .question').keydown (e) ->
     if e.keyCode == 13
       e.preventDefault()
+])
 
-ComposeController.$inject = ['$scope', '$sce']
-
-window.PostsController = ($scope, $sce) ->
+index.controller('PostsController', ['$scope', '$sce', 'ajax', ($scope, $sce, ajax) ->
   $scope.loading = false
   $scope.no_more = !more
   if posts.length > 0
@@ -177,5 +178,4 @@ window.PostsController = ($scope, $sce) ->
             post.attempted = true
         ),
       }
-
-PostsController.$inject = ['$scope', '$sce']
+])

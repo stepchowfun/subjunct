@@ -1,29 +1,5 @@
-# options: { url, type, data, success, error, complete }
-window.ajax = (options) ->
-  if !options.url then throw 'ajax call missing url'
-  if !options.type? then options.type = 'get'
-  if !options.data? then options.data = {}
-  if !options.success? then options.success = (->)
-  if !options.error? then options.error = (->)
-  if !options.complete? then options.complete = (->)
-
-  success_wrapper = (data) ->
-    if data.notice?
-      notice(data.notice)
-    if !data.success
-      return options.error(data)
-    return options.success(data)
-
-  error_wrapper = (data) ->
-    if data.notice?
-      notice(data.notice)
-    return options.error(data)
-
-  $.ajax {
-    url: options.url,
-    type: options.type,
-    data: options.data,
-    success: success_wrapper,
-    error: error_wrapper,
-    complete: options.complete,
-  }
+# application module
+subjunct = angular.module('subjunct', [
+  'index',
+  'post'
+])

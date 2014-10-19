@@ -1,11 +1,17 @@
-window.NoticeController = ($scope, $sce) ->
-  $scope.notices = []
+notice = angular.module('notice', [])
 
-  window.notice = (message) ->
-    $scope.$apply () ->
-      $scope.notices.push({
+scope = null
+
+notice.controller('NoticeController', ['$scope', ($scope) ->
+  scope = $scope
+  scope.notices = []
+])
+
+notice.factory('notice', ['$sce', ($sce) ->
+  return (message) ->
+    scope.$apply () ->
+      scope.notices.push({
         text: $sce.trustAsHtml(message),
         open: true,
       })
-
-NoticeController.$inject = ['$scope', '$sce']
+])

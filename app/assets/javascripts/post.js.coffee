@@ -1,4 +1,6 @@
-window.PostController = ($scope, $sce) ->
+index = angular.module('post', [])
+
+index.controller('PostController', ['$scope', '$sce', 'ajax', ($scope, $sce, ajax) ->
   $scope.post = post
   $scope.post.question = $sce.trustAsHtml($scope.post.question)
   $scope.post.expanded = false
@@ -32,5 +34,4 @@ window.PostController = ($scope, $sce) ->
             post.attempted = true
         ),
       }
-
-PostController.$inject = ['$scope', '$sce']
+])
