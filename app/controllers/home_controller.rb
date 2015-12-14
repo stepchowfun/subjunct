@@ -119,9 +119,25 @@ private
   # used as a before filter
   def use_https
     if Rails.env.production?
-      if request.protocol != 'https://'
-        return redirect_to "https://#{request.url[(request.protocol.size)..(-1)]}"
+      if get_protocol != 'https://'
+        return redirect_to "https://#{request.url[(get_protocol.size)..(-1)]}"
       end
     end
+  end
+
+  # use this instead of request.protocol to get the protocol.
+  # if the user makes an HTTPS request, CloudFlare will translate that
+  # into an HTTP request to the Rails server, so request.protocol will
+  # be incorrect. this method accounts for that.
+  def get_protocol
+    # from cloudflare
+    if request.headers['Cf-Visitor']
+      cf_scheme = JSON.parse(request.headers['Cf-Visitor'])['scheme'].downcase
+      if cf_scheme
+        return "#{cf_scheme}://"
+      end
+    end
+
+    return request.protocol
   end
 end
